@@ -20,7 +20,7 @@ var CANVAS_HEIGHT = HEIGHT + MAX_CIRCLE_SIZE;
 //this gets called only once in the very beginning
 function setup() {
 //   createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
-  createCanvas(300, 400);
+  createCanvas(400, 300);
 }
 
 //this gets called every frame (about 60 frames per second)
