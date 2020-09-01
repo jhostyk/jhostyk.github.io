@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Sefer Similarity Map"
-permalink: /SeferSimilarityMap/
+permalink: /SeferSimilarityMap
 
 ---
 
