@@ -5,7 +5,7 @@ permalink: /Sefaria/Demo
 
 ___
 
-
+<!DOCTYPE html>
 <html lang="en" class="no-js">
 	<head>
 		<meta charset="UTF-8" />
