@@ -1,0 +1,75 @@
+{% extends 'menuTemplate.html' %}
+
+
+{% block content %}
+
+<style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }    
+    input[type=checkbox]{
+      position:absolute;
+      left: -100vw;
+    }
+    
+    input[type=checkbox]:checked+label {
+      color: #f00;
+      font-style: normal;
+    }
+    
+    .toggle-heart{
+      align-self: center;
+      color: #aab8c2;
+      font-size: 2em;
+      cursor: pointer;
+    }
+ </style>
+ <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+ <script>
+    $(document).ready(function() {
+        $("button").click(function(){
+            var favorite = [];
+            $.each($("input[name='favoriteoption']:checked"), function(){
+                favorite.push($(this).val());
+            });
+            alert("My favourites: " + favorite.join(", "));
+            var url = "/savefave";
+            $.post(url, {'favs[]': favorite});
+        });
+    });
+ </script>   
+<h1> {{showname}} </h1>
+
+    {% if network is defined %}
+      <h2>{{network}}</h2>
+     {% endif %}
+  
+    <h2>Episodes</h2>
+<!--   <div>{{episodes}}</div> -->
+
+  <div>
+    {% for n in episodes %}
+    <input id="{{n}}" value="{{n}}" name="favoriteoption" type="checkbox"/>
+    <label class="toggle-heart" for="{{n}}">❤</label>  
+    <a href="{{url_for('episodedetails', epiname=n)}}">{{n}}</a>
+    {% endfor %}
+  </div>
+  
+      <h2>Host</h2>
+<!--   <div>{{hosts}}</div> -->
+
+  <div>
+    {% for n in hosts %}
+    <input id="{{n}}" value="{{n}}" name="favoriteoption" type="checkbox"/>
+    <label class="toggle-heart" for="{{n}}">❤</label>  
+    <a href="{{url_for('hostdetails', hostname=n)}}">{{n}}</a>
+    {% endfor %}
+  </div>
+
+{% if g.user %}
+    <button type="button">Save Favorites</button>
+{% endif %}
+  
+  
+{% endblock %}

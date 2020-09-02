@@ -1,0 +1,73 @@
+{% extends 'menuTemplate.html' %}
+
+
+{% block content %}
+
+<style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }     
+      input[type=checkbox]{
+      position:absolute;
+      left: -100vw;
+    }
+    
+    input[type=checkbox]:checked+label {
+      color: #f00;
+      font-style: normal;
+    }
+    
+    .toggle-heart{
+      align-self: center;
+      color: #aab8c2;
+      font-size: 2em;
+      cursor: pointer;
+    }
+ </style>
+ <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+ <script>
+    $(document).ready(function() {
+        $("button").click(function(){
+            var favorite = [];
+            $.each($("input[name='favoriteoption']:checked"), function(){
+                favorite.push($(this).val());
+            });
+            alert("My favourites: " + favorite.join(", "));
+            var url = "/savefave";
+            $.post(url, {'favs[]': favorite});
+        });
+    });
+ </script>   
+
+<h1> {{hostname}} </h1>
+
+    <h2>Shows</h2>
+<!--   <div>{{shows}}</div> -->
+
+  <div>
+    {% for n in shows %}
+    <input id="{{n}}" value="{{n}}" name="favoriteoption" type="checkbox"/>
+    <label class="toggle-heart" for="{{n}}">❤</label>  
+    <a href="{{url_for('showdetails', showname=n)}}">{{n}}</a>
+    {% endfor %}
+  </div>
+  
+  {% if guest_shows is defined %}
+      <h2>Appears On</h2>
+<!--   <div>{{guest_shows}}</div> -->
+
+    <div>
+      {% for n in guest_shows %}
+      <input id="{{n}}" value="{{n}}" name="favoriteoption" type="checkbox"/>
+      <label class="toggle-heart" for="{{n}}">❤</label>  
+      <a href="{{url_for('episodedetails', epiname=n)}}">{{n}}</a>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+{% if g.user %}
+    <button type="button">Save Favorites</button>
+{% endif %}
+  
+{% endblock %}

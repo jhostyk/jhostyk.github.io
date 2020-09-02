@@ -1,0 +1,22 @@
+{% extends 'menuTemplate.html' %}
+  {% block pageTitle %}
+
+
+      <header>
+        <h1>Networks</h1> 
+      </header>
+
+    {% endblock %}
+
+{% block content %}
+
+  <table style="margin: 0px auto; color:#FFFFFF">
+  {% for n in networks %}
+  <TR>
+     <TD class="c1">{{n}}</TD>
+  </TR>
+  {% endfor %}
+  </table>
+
+
+{% endblock %}

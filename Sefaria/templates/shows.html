@@ -1,0 +1,22 @@
+{% extends 'menuTemplate.html' %}
+  {% block pageTitle %}
+
+
+      <header>
+        <h1>Shows</h1> 
+      </header>
+
+    {% endblock %}
+
+{% block content %}
+
+  <table style="margin: 0px auto; color:#FFFFFF">
+  {% for n in shows %}
+  <TR>
+     <TD class="c1">{{n}}</TD>
+  </TR>
+  {% endfor %}
+  </table>
+
+
+{% endblock %}
