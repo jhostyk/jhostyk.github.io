@@ -1,10 +1,4 @@
-___
-layout: page
-title: "Sefer Similarity Map"
-permalink: /SeferSimilarityMap
-
-___
-
+<!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
 
@@ -13131,10 +13125,10 @@ These relationships can illuminate historical, authorship, linguistic, and styli
 <h3 id="n-grams.">n-grams.<a class="anchor-link" href="#n-grams.">&#182;</a></h3><p>Let's make those tables even bigger!<br>
 We wanted to select features that would be helpful in identifying true substructure. The counts of words is useful: a sefer that mentions Shmuel should be similar to another "Shmuel" sefer, but not to a "Rav Huna" sefer. But a “bag of words” (word counts, where order doesn’t matter) model can only contain so much information. "Rav Huna" and "Rav Yosef" each share "Rav", but should be considered differently.<br>
 We therefore expanded to phrases - or “n-grams”. (A bigram is a two-word phrase; a trigram is three.) By including the counts of these n-grams, we retain more contextual information.<br></p>
-<p>We can add the counts of these n-grams to our matrix, so that for each text, we have both the counts of single words, but also longer phrases. We typically</p>
-<h3 id="UMAP"><a href="https://arxiv.org/pdf/1802.03426.pdf">UMAP</a><a class="anchor-link" href="#UMAP">&#182;</a></h3><p>This process leaves us with a giant matrix, with different texts as rows, words within the corpus as columns, and each cell being the frequency of that word within that text. Texts that have similar counts of the same words will have similar rows in the table. If we view the table as a representation of a high-dimensional space, then those text would also be near each other in this space. However, visualizing this would be really difficult! We can’t draw a plot in 100-thousand dimensions.<br>
+<p>We can add the counts of these n-grams to our matrix, so that for each text, we have both the counts of single words, but also longer phrases. Below, we run on n-grams up to size 4.</p>
+<h3 id="UMAP"><a href="https://arxiv.org/pdf/1802.03426.pdf">UMAP</a><a class="anchor-link" href="#UMAP">&#182;</a></h3><p>This process leaves us with a giant matrix, with rows being the different texts, columns being the words within the corpus, and each cell being the frequency of that word within that text. Texts that have similar counts of the same words will have similar rows in the table. If we view the table as a representation of a high-dimensional space, then those text would also be near each other in this space. However, visualizing this would be really difficult! We can’t draw a plot in 100-thousand dimensions.<br>
 Dimensionality reduction is a technique to convert this high-dimensional data into something more manageable for us. We used a method called <a href="https://umap-learn.readthedocs.io/en/latest/">UMAP</a> to reduce the dimensionality of our ngram-count matrix so that we could visualize the final result.<br>
-Texts that were near each other in the original high-dimensional space (because they have similar rates of the same words) should also be close in their UMAP projections into this new 2-D space. This means that texts that group together in the UMAP space (shown in our plots below),</p>
+Texts that were near each other in the original high-dimensional space (because they have similar rates of the same words) should also be close in their UMAP projections into this new 2-D space. This means that texts that group together in the UMAP space (shown in our plots below), should truly have been similar in the high-dimensional space, meaning they should have similar values in the matrix, and should use similar rates of the same words. Clusters in our plots below should therefore truly represent similar texts!</p>
 <h3 id="Limitations:">Limitations:<a class="anchor-link" href="#Limitations:">&#182;</a></h3><p>Using raw counts is not ideal - longer texts will have higher values overall, which can throw off the clustering. Typically, you would normalize the values based on their frequency in the corpus as a whole. <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf">tf-idf</a> is a common method; we played around with some custom scoring metrics, but did not include them below.<br>
 We do not use many of the benefits of NLP. We don’t account for prepositions. For example, "והיה" is counted differently than "היה", while ideally we should lemmatize them and count them as the same word. However, the vast amounts of data should actually wipe away many of the specific benefits NLP could bring to the table.<br>
 Similarly, we did not remove extremely common words. This makes comparisons of highly-repetitive texts difficult. When we ran our method on amudim in the Talmud, we produced two large clusters, instead of many highly differentiable ones. We believe this is because most amudim share a lot of similar words, which overwhelms their unique ones.<br>
@@ -13144,61 +13138,9 @@ By mousing over different dots, you can see the texts in the comparison. You can
 <p>We included some observations with each comparison. Let us know if you find any other interesting connections!<br></p>
 <h3 id="Contact">Contact<a class="anchor-link" href="#Contact">&#182;</a></h3><p>We can be reached at jhostyk [at] gmail.com and abzaloum [at] gmail.com.<br>
 Please reach out with any questions, or suggestions/requests for additional plots!</p>
-<h3 id="Acknowledgements">Acknowledgements<a class="anchor-link" href="#Acknowledgements">&#182;</a></h3><p>Thank you to Ben Glass for advising on the project.</p>
+<p>Our code is available on our <a href="https://github.com/jhostyk/TorahScraping/blob/master/SeferSimilarities.ipynb">github</a>.</p>
 
 </div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Dependencies:</span>
-
-<span class="kn">import</span> <span class="nn">csv</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">display</span><span class="p">,</span> <span class="n">clear_output</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">itertools</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">defaultdict</span><span class="p">,</span> <span class="n">Counter</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="c1"># matplotlib.use(&#39;TKAgg&#39;)</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
-<span class="kn">import</span> <span class="nn">spacy</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">unicodedata</span>
-
-<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
-<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="k">import</span> <span class="n">lil_matrix</span><span class="p">,</span> <span class="n">csr_matrix</span><span class="p">,</span> <span class="n">csc_matrix</span><span class="p">,</span> <span class="n">hstack</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### UMAP:</span>
-<span class="kn">import</span> <span class="nn">umap</span>
-<span class="kn">import</span> <span class="nn">umap.plot</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="o">%</span><span class="k">matplotlib</span> notebook
-<span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="k">import</span> <span class="n">show</span><span class="p">,</span> <span class="n">save</span><span class="p">,</span> <span class="n">output_notebook</span><span class="p">,</span> <span class="n">output_file</span>
-<span class="kn">from</span> <span class="nn">bokeh.resources</span> <span class="k">import</span> <span class="n">INLINE</span>
-<span class="n">output_notebook</span><span class="p">(</span><span class="n">resources</span><span class="o">=</span><span class="n">INLINE</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">sklearn.cluster</span> <span class="k">as</span> <span class="nn">cluster</span>
-</pre></div>
-
-    </div>
 </div>
 </div>
 
@@ -13230,10 +13172,10 @@ Please reach out with any questions, or suggestions/requests for additional plot
 
 
 
-<div id="0b4009c3-0616-47b7-b545-9f12779d30a5"></div>
+<div id="dcae010c-d6cf-4196-8f91-49747de35c85"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#0b4009c3-0616-47b7-b545-9f12779d30a5');
+var element = $('#dcae010c-d6cf-4196-8f91-49747de35c85');
 
 (function(root) {
   function now() {
@@ -14532,510 +14474,7 @@ var element = $('#0b4009c3-0616-47b7-b545-9f12779d30a5');
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Load-texts">Load texts<a class="anchor-link" href="#Load-texts">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">seferNameFromPath</span><span class="p">(</span><span class="n">seferPath</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Parse out the name.</span>
 
-<span class="sd">    Args:</span>
-<span class="sd">        seferPath (str): Full path to the sefer.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        The name itself.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="k">return</span> <span class="n">seferPath</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
-
-
-<span class="k">def</span> <span class="nf">getFilePaths</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">additionalSearch</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">hebrewOrEnglish</span> <span class="o">=</span> <span class="s2">&quot;Hebrew&quot;</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Recursively go through a folder and get all file names, for processing later.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        folder (str): Full path to the folder.</span>
-<span class="sd">        additionalSearch (str): Optional extra term in the file name. Useful for some</span>
-<span class="sd">            Sefaria names. For gmara, &quot;merged.txt&quot; seemed to be the best Hebrew version.</span>
-<span class="sd">            For Tanach, &quot;Text Only.txt&quot; was a non-nekudot, good version.</span>
-<span class="sd">        hebrewOrEnglish (str): We saved a Hebrew and English version for each sefer. The</span>
-<span class="sd">            user can specify which to load. Defaults to Hebrew.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        filePaths (list of strings): </span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-<span class="c1">#     print (&quot;Getting file paths...&quot;)</span>
-
-    <span class="n">filePaths</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s2">&quot;.txt&quot;</span> <span class="ow">in</span> <span class="n">file</span> <span class="ow">and</span> <span class="n">hebrewOrEnglish</span> <span class="ow">in</span> <span class="n">root</span> <span class="ow">and</span> <span class="n">additionalSearch</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span><span class="c1"># and &quot;Commentary&quot; not in root and &quot;Targum&quot; not in root:</span>
-                <span class="n">filePaths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">file</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">filePaths</span>
-
-
-<span class="k">def</span> <span class="nf">getPathsForSections</span><span class="p">(</span><span class="n">sections</span><span class="p">,</span> <span class="n">excludeSections</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Using the Sefaria-defined sections (e.g. &quot;Tanakh&quot;, &quot;Apocrypha&quot;), get the paths</span>
-<span class="sd">    to &quot;merged.txt&quot; in every subfolder.</span>
-<span class="sd">    </span>
-<span class="sd">    Args:</span>
-<span class="sd">    </span>
-<span class="sd">        sections (list of strings): Folder names; can be top-level or as low down</span>
-<span class="sd">            (e.g. &quot;Talmud/Bavli/Seder Moed&quot;) as desired.</span>
-<span class="sd">        excludeSections (list of strings): Don&#39;t return files that have any of these words, in their</span>
-<span class="sd">            path. Useful for &quot;Commentary&quot; or &quot;Targum&quot;, which contain many files that may throw off</span>
-<span class="sd">            the clustering.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        seferFilePaths (list of strings): Full paths to the files.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="n">seferFilePaths</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">section</span> <span class="ow">in</span> <span class="n">sections</span><span class="p">:</span>
-        
-        <span class="n">seferFilePaths</span> <span class="o">+=</span> <span class="n">getFilePaths</span><span class="p">(</span><span class="s2">&quot;Texts/</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">section</span><span class="p">))</span>
-    
-    <span class="k">if</span> <span class="n">excludeSections</span><span class="p">:</span>
-        
-        <span class="n">excludeIndices</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">seferFilePath</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">seferFilePaths</span><span class="p">):</span>
-            
-            <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">excludeSections</span><span class="p">:</span>
-                
-                <span class="k">if</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">seferFilePath</span><span class="p">:</span>
-                    
-                    <span class="n">excludeIndices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
-                    
-        <span class="n">seferFilePaths</span> <span class="o">=</span> <span class="p">[</span><span class="n">seferPath</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">seferPath</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">seferFilePaths</span><span class="p">)</span> <span class="k">if</span> <span class="n">index</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">excludeIndices</span><span class="p">]</span>         
-                
-    
-    <span class="k">return</span> <span class="n">seferFilePaths</span>
-        
-
-<span class="n">getTanachPaths</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">getPathsForSections</span><span class="p">,</span> <span class="n">sections</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Tanakh/Torah&quot;</span><span class="p">,</span> <span class="s2">&quot;Tanakh/Prophets&quot;</span><span class="p">,</span> <span class="s2">&quot;Tanakh/Writings&quot;</span><span class="p">])</span>
-
-<span class="n">sdarim</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Kodashim&quot;</span><span class="p">,</span> <span class="s2">&quot;Moed&quot;</span><span class="p">,</span> <span class="s2">&quot;Nashim&quot;</span><span class="p">,</span> <span class="s2">&quot;Nezikin&quot;</span><span class="p">,</span> <span class="s2">&quot;Tahorot&quot;</span><span class="p">,</span> <span class="s2">&quot;Zeraim&quot;</span><span class="p">]</span>
-<span class="n">sdarimPaths</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Talmud/Bavli/Seder &quot;</span> <span class="o">+</span> <span class="n">seder</span> <span class="k">for</span> <span class="n">seder</span> <span class="ow">in</span> <span class="n">sdarim</span><span class="p">]</span>
-<span class="n">getTalmudPaths</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">getPathsForSections</span><span class="p">,</span> <span class="n">sections</span> <span class="o">=</span> <span class="n">sdarimPaths</span><span class="p">)</span>
-
-<span class="n">getAllPaths</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">getPathsForSections</span><span class="p">,</span> <span class="n">sections</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.&quot;</span><span class="p">])</span>
-    
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;We have </span><span class="si">{}</span><span class="s2"> Sefaria sfarim.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">getAllPaths</span><span class="p">())))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>We have 4338 Sefaria sfarim.
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Intro-helper-functions.">Intro helper functions.<a class="anchor-link" href="#Intro-helper-functions.">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">makeNgramsDictionaryFromSefer</span><span class="p">(</span><span class="n">seferPath</span><span class="p">,</span> <span class="n">sizeOfNgram</span><span class="p">,</span> <span class="n">byPerek</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Read through a file and get counts of all the n-grams in it.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        seferPath (str): Full path to the sefer file.</span>
-<span class="sd">        sizeOfNgram (int): the length of the phrases (n-grams) to return</span>
-<span class="sd">        byPerek (bool): If false (default), return counts of the words for the whole sefer.</span>
-<span class="sd">            If true, return counts of words per perek.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        seferWords (Counter, or dict of Counters): If not byPerek, Counter of words to counts.</span>
-<span class="sd">            If byPerek, dictionary of perek names to Counters of words to counts.</span>
-<span class="sd">    &quot;&quot;&quot;</span> 
-        
-    <span class="n">seferName</span> <span class="o">=</span> <span class="n">seferNameFromPath</span><span class="p">(</span><span class="n">seferPath</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">byPerek</span><span class="p">:</span>
-        <span class="n">seferNgrams</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">byPerek</span><span class="p">:</span>
-        <span class="n">seferNgrams</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="n">Counter</span><span class="p">)</span>
-    <span class="n">problematicWords</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-    
-    <span class="c1">### For sfarim that might not be easily divided, or have an intro:</span>
-    <span class="k">if</span> <span class="n">byPerek</span><span class="p">:</span>
-        
-        <span class="n">perekName</span> <span class="o">=</span> <span class="n">seferName</span> <span class="o">+</span> <span class="s2">&quot; 0&quot;</span>
-        
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">seferPath</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">psukim</span><span class="p">:</span>
-        
-        <span class="c1">### Skip first 9 lines - metadata</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
-            <span class="nb">next</span><span class="p">(</span><span class="n">psukim</span><span class="p">)</span>
-            
-        <span class="k">for</span> <span class="n">pasuk</span> <span class="ow">in</span> <span class="n">psukim</span><span class="p">:</span>
-
-            <span class="c1">### Some quick cleaning:</span>
-            <span class="n">cleanedPasuk</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&lt;[^&lt;]+?&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">pasuk</span><span class="p">)</span> <span class="c1"># ayy https://stackoverflow.com/a/4869782</span>
-
-            <span class="n">cleanedPasuk</span> <span class="o">=</span> <span class="n">cleanedPasuk</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;־&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;[&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;]&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;׃&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-            <span class="n">cleanedPasuk</span> <span class="o">=</span> <span class="n">cleanedPasuk</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;(פ)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;(ס)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="c1">### This is for now; change later if splitting on these.</span>
-            
-            <span class="c1">### Deal with nekudot: https://gist.github.com/yakovsh/345a71d841871cc3d375#gistcomment-1672181</span>
-            <span class="n">normalized</span> <span class="o">=</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="s1">&#39;NFKD&#39;</span><span class="p">,</span> <span class="n">cleanedPasuk</span><span class="p">)</span>
-            <span class="n">cleanedPasuk</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">normalized</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">combining</span><span class="p">(</span><span class="n">c</span><span class="p">)])</span>
-            
-            <span class="n">splitPasuk</span> <span class="o">=</span> <span class="n">cleanedPasuk</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-
-            <span class="c1"># Skip the non-text lines.</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">splitPasuk</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="k">continue</span>
-            
-            <span class="k">if</span> <span class="n">splitPasuk</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;הקדמה&quot;</span><span class="p">:</span>
-                
-                <span class="n">perekName</span> <span class="o">=</span> <span class="n">seferName</span> <span class="o">+</span> <span class="s2">&quot; 0&quot;</span> <span class="c1"># Or is &quot;_ Introduction&quot; better?</span>
-            <span class="k">if</span> <span class="n">splitPasuk</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;Chapter&quot;</span><span class="p">,</span> <span class="s2">&quot;chapter&quot;</span><span class="p">,</span> <span class="s2">&quot;Section&quot;</span><span class="p">,</span> <span class="s2">&quot;Seif&quot;</span><span class="p">,</span> <span class="s2">&quot;Part&quot;</span><span class="p">,</span> <span class="s2">&quot;Daf&quot;</span><span class="p">,</span> <span class="s2">&quot;Nahar&quot;</span><span class="p">,</span> <span class="s2">&quot;Parasha&quot;</span><span class="p">,</span> <span class="s2">&quot;פרשת&quot;</span><span class="p">,</span> <span class="s2">&quot;Klal&quot;</span><span class="p">]:</span>
-                 <span class="c1">## &quot;Siman&quot;? Paragraph&quot;? &quot;Gate&quot;? &quot;פרשת&quot; seems risky, in case a sentence begins with it.</span>
-                
-                <span class="k">if</span> <span class="n">byPerek</span><span class="p">:</span>
-                    
-                    <span class="n">perekNumber</span> <span class="o">=</span> <span class="n">splitPasuk</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="n">perekName</span> <span class="o">=</span> <span class="n">seferName</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">perekNumber</span>
-                    
-                <span class="k">continue</span>
-
-                
-            <span class="c1">### Delete spaces:</span>
-            <span class="k">if</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">splitPasuk</span><span class="p">:</span>
-                <span class="n">splitPasuk</span><span class="o">.</span><span class="n">remove</span><span class="p">([</span><span class="s2">&quot;&quot;</span><span class="p">])</span>
-            <span class="k">for</span> <span class="n">wordIndex</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">splitPasuk</span><span class="p">)</span> <span class="o">-</span> <span class="n">sizeOfNgram</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-                
-<span class="c1">#                 if word == &quot;&quot;:</span>
-<span class="c1">#                     continue</span>
-                <span class="k">try</span><span class="p">:</span>
-                    
-                    <span class="n">ngram</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">splitPasuk</span><span class="p">[</span><span class="n">wordIndex</span><span class="p">:</span><span class="n">wordIndex</span> <span class="o">+</span> <span class="n">sizeOfNgram</span><span class="p">])</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">byPerek</span><span class="p">:</span>
-                        <span class="n">seferNgrams</span><span class="p">[</span><span class="n">ngram</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-
-                    <span class="k">if</span> <span class="n">byPerek</span><span class="p">:</span>
-                        
-                        <span class="n">seferNgrams</span><span class="p">[</span><span class="n">perekName</span><span class="p">][</span><span class="n">ngram</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-
-                <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                    <span class="n">problematicWords</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">ngram</span><span class="p">)</span>
-                    
-                              
-    <span class="k">return</span> <span class="n">seferNgrams</span>
-
-<span class="n">makeWordDictionaryFromSefer</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">makeNgramsDictionaryFromSefer</span><span class="p">,</span> <span class="n">sizeOfNgram</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">getNgramCountsBySefer</span><span class="p">(</span><span class="n">seferPaths</span><span class="p">,</span> <span class="n">sizeOfNgram</span><span class="p">,</span> <span class="n">byPerek</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">removeExclusiveNgrams</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Get counts of all words in a list of sfarim.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        seferPaths (list of strings): Full paths to the sfarim to analyze.</span>
-<span class="sd">        byPerek (bool): If false (default), return counts of the words by sefer.</span>
-<span class="sd">            If true, return counts of words per perek/subsection.</span>
-<span class="sd">        removeExclusiveNgrams (bool): Remove any ngram that only shows up in one</span>
-<span class="sd">            of the selected sections.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        sfarimToWords (dict of Counters): Keep track of the rates of each word/phrase</span>
-<span class="sd">            in each sefer/perek. e.g. {sefer1: {word1: counts, word2: ...}}</span>
-<span class="sd">        sfarimToSizeOfSefer (dict): Keep track of the size of each text, for normalization later.</span>
-<span class="sd">    &quot;&quot;&quot;</span>   
-    
-    <span class="n">sfarimToWords</span> <span class="o">=</span> <span class="p">{}</span> <span class="c1">### Dict of dicts</span>
-    <span class="n">sfarimToSizeOfSefer</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span> <span class="c1">### dict of {seferName: int}</span>
-    
-    
-    <span class="c1">### Keep track of total counts, to remove later:</span>
-    <span class="k">for</span> <span class="n">seferPath</span> <span class="ow">in</span> <span class="n">seferPaths</span><span class="p">:</span>
-        
-
-        <span class="n">seferName</span> <span class="o">=</span> <span class="n">seferNameFromPath</span><span class="p">(</span><span class="n">seferPath</span><span class="p">)</span>
-        <span class="n">wordsInSefer</span> <span class="o">=</span> <span class="n">makeNgramsDictionaryFromSefer</span><span class="p">(</span><span class="n">seferPath</span> <span class="o">=</span> <span class="n">seferPath</span><span class="p">,</span> <span class="n">sizeOfNgram</span> <span class="o">=</span> <span class="n">sizeOfNgram</span><span class="p">,</span> <span class="n">byPerek</span> <span class="o">=</span> <span class="n">byPerek</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">byPerek</span><span class="p">:</span>
-            <span class="n">sfarimToWords</span><span class="p">[</span><span class="n">seferName</span><span class="p">]</span> <span class="o">=</span> <span class="n">wordsInSefer</span>
-            <span class="n">sfarimToSizeOfSefer</span><span class="p">[</span><span class="n">seferName</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">wordsInSefer</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-            
-
-        <span class="c1">### If running by perek, have a dict of Counters. Need to extract.</span>
-        <span class="k">if</span> <span class="n">byPerek</span><span class="p">:</span>
-<span class="c1">#           sfarimToWords.update(wordsInSefer)</span>
-            <span class="k">for</span> <span class="n">perekName</span><span class="p">,</span> <span class="n">perekCounts</span> <span class="ow">in</span> <span class="n">wordsInSefer</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-
-                <span class="n">sfarimToWords</span><span class="p">[</span><span class="n">perekName</span><span class="p">]</span> <span class="o">=</span> <span class="n">perekCounts</span>
-                <span class="n">sfarimToSizeOfSefer</span><span class="p">[</span><span class="n">perekName</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">perekCounts</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-    
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">removeExclusiveNgrams</span> <span class="ow">or</span> <span class="n">sizeOfNgram</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-        
-        <span class="k">if</span> <span class="n">sizeOfNgram</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            
-            <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Keeping all n-grams of size 1.&quot;</span><span class="p">)</span>
-        
-        <span class="k">return</span> <span class="n">sfarimToWords</span><span class="p">,</span> <span class="n">sfarimToSizeOfSefer</span>
-    
-    <span class="c1">### Otherwise, by default, reemove ngrams that only show up in one of the sections.</span>
-
-    <span class="n">wordsToNumberOfSfarimTheyAppearIn</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
-
-    <span class="c1">## Find how many sfarim each word appears in.</span>
-    <span class="k">for</span> <span class="n">seferName</span><span class="p">,</span> <span class="n">seferToWords</span> <span class="ow">in</span> <span class="n">sfarimToWords</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-
-        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">seferToWords</span><span class="p">:</span>
-
-            <span class="n">wordsToNumberOfSfarimTheyAppearIn</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-
-
-    <span class="c1">### Remove the most infrequent:</span>
-    <span class="n">wordsToRemove</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">numberOfSfarimThatWordAppearsIn</span> <span class="ow">in</span> <span class="n">wordsToNumberOfSfarimTheyAppearIn</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-
-        <span class="k">if</span> <span class="n">numberOfSfarimThatWordAppearsIn</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="c1"># &lt; len(seferPaths) / 10.0: ### magic parameter to play around with:</span>
-
-
-            <span class="n">wordsToRemove</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
-
-    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Removing </span><span class="si">{}</span><span class="s2"> ngrams that only appear in one section.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wordsToRemove</span><span class="p">)))</span>
-
-    <span class="c1">### Deleting from original dict took too long, so we create a new one, and delete the entire old one.</span>
-    <span class="n">cleanedSfarimToWords</span> <span class="o">=</span> <span class="p">{}</span>
-
-    <span class="k">for</span> <span class="n">seferName</span><span class="p">,</span> <span class="n">seferToWords</span> <span class="ow">in</span> <span class="n">sfarimToWords</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-
-        <span class="n">cleanedSfarimToWords</span><span class="p">[</span><span class="n">seferName</span><span class="p">]</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">({</span><span class="n">word</span><span class="p">:</span> <span class="n">counts</span> <span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">counts</span> <span class="ow">in</span> <span class="n">seferToWords</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">wordsToRemove</span><span class="p">})</span>
-
-    <span class="n">sfarimToWords</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-
-                
-    <span class="k">return</span> <span class="n">cleanedSfarimToWords</span><span class="p">,</span> <span class="n">sfarimToSizeOfSefer</span>
-
-<span class="n">getWordCountsBySefer</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">getNgramCountsBySefer</span><span class="p">,</span> <span class="n">sizeOfNgram</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
-
-<span class="n">getTanachWordCountsBySefer</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">getWordCountsBySefer</span><span class="p">,</span> <span class="n">seferPaths</span> <span class="o">=</span> <span class="n">getTanachPaths</span><span class="p">())</span>
-<span class="n">getTalmudWordCountsBySefer</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">getWordCountsBySefer</span><span class="p">,</span> <span class="n">seferPaths</span> <span class="o">=</span> <span class="n">getTalmudPaths</span><span class="p">())</span>
-<span class="n">getAllWordCountsBySefer</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">getWordCountsBySefer</span><span class="p">,</span> <span class="n">seferPaths</span> <span class="o">=</span> <span class="n">getAllPaths</span><span class="p">())</span>
-
-<span class="n">getTanachNgramCountsBySefer</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">getNgramCountsBySefer</span><span class="p">,</span> <span class="n">seferPaths</span> <span class="o">=</span> <span class="n">getTanachPaths</span><span class="p">())</span>
-<span class="n">getTalmudNgramCountsBySefer</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">getNgramCountsBySefer</span><span class="p">,</span> <span class="n">seferPaths</span> <span class="o">=</span> <span class="n">getTalmudPaths</span><span class="p">())</span>
-<span class="n">getAllNgramCountsBySefer</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">getNgramCountsBySefer</span><span class="p">,</span> <span class="n">seferPaths</span> <span class="o">=</span> <span class="n">getAllPaths</span><span class="p">())</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="UMAP">UMAP<a class="anchor-link" href="#UMAP">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">makeNgramMatrix</span><span class="p">(</span><span class="n">sfarimToWords</span><span class="p">,</span> <span class="n">sfarimToSizeOfSefer</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Prep the UMAP input.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        sfarimToWords (dict of Counters): Keep track of the rates of each word/phrase</span>
-<span class="sd">            in each sefer/perek. e.g. {sefer1: {word1: counts, word2: ...}}</span>
-<span class="sd">        sfarimToSizeOfSefer (dict): Keep track of the size of each text, for normalization later.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        wordsMatrix (numpy sparse column matrix): Rows are the names of the sections, columns are the</span>
-<span class="sd">            words/ngrams.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>    
-    <span class="c1">### Get all words:</span>
-    <span class="n">allWordsInSelection</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-    <span class="n">sfarim</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">sfarimToWords</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">sefer</span><span class="p">,</span> <span class="n">wordsCounter</span> <span class="ow">in</span> <span class="n">sfarimToWords</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-
-        <span class="n">seferWords</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">wordsCounter</span><span class="p">)</span>
-
-        <span class="n">allWordsInSelection</span> <span class="o">|=</span> <span class="n">seferWords</span>
-
-    <span class="n">allWordsInSelection</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">allWordsInSelection</span><span class="p">)</span> <span class="c1"># Turn into list and sort.</span>
-    <span class="n">numberWordsInSelection</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">allWordsInSelection</span><span class="p">)</span>
-    <span class="n">numberSfarim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sfarimToWords</span><span class="p">)</span>
-
-    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;In the </span><span class="si">{}</span><span class="s2"> selected sections, there are </span><span class="si">{}</span><span class="s2"> unique ngrams.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">numberSfarim</span><span class="p">,</span> <span class="n">numberWordsInSelection</span><span class="p">))</span>
-
-    <span class="c1">### Use sparse matrix:</span>
-    <span class="n">wordsMatrix</span> <span class="o">=</span> <span class="n">lil_matrix</span><span class="p">((</span><span class="n">numberSfarim</span><span class="p">,</span> <span class="n">numberWordsInSelection</span><span class="p">))</span>
-    
-    <span class="c1">### Fill in matrix:</span>
-    <span class="k">for</span> <span class="n">seferNumber</span><span class="p">,</span> <span class="p">(</span><span class="n">sefer</span><span class="p">,</span> <span class="n">seferWordCounts</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">sfarimToWords</span><span class="o">.</span><span class="n">items</span><span class="p">())):</span>
-
-        <span class="c1">### raw frequency:</span>
-        <span class="n">counts</span> <span class="o">=</span> <span class="p">[</span><span class="n">seferWordCounts</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">allWordsInSelection</span><span class="p">]</span>
-
-        <span class="c1">### special scoring:</span>
-        <span class="c1">#     counts = [seferWordCounts[word] * np.lo for word in allWordsInSelection]</span>
-
-        <span class="n">wordsMatrix</span><span class="p">[</span><span class="n">seferNumber</span><span class="p">]</span> <span class="o">=</span> <span class="n">counts</span>        
-
-    <span class="n">wordsMatrix</span> <span class="o">=</span> <span class="n">csc_matrix</span><span class="p">(</span><span class="n">wordsMatrix</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">wordsMatrix</span>
-
-<span class="k">def</span> <span class="nf">getUMAPembedding</span><span class="p">(</span><span class="n">wordsMatrix</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Actually running UMAP.</span>
-<span class="sd">    Args:</span>
-<span class="sd">        sfarimToWords ():</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        The gmatria (int)</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>       
-    <span class="n">embedding</span> <span class="o">=</span> <span class="n">umap</span><span class="o">.</span><span class="n">UMAP</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;hellinger&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">wordsMatrix</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">embedding</span>
-<span class="c1">#     print (embedding.embedding_.shape)</span>
-
-    <span class="c1">### Instead of perek names, just do Sefer names.</span>
-    <span class="c1">### This breaks if not doing byPerek.</span>
-
-<span class="k">def</span> <span class="nf">plotUMAP</span><span class="p">(</span><span class="n">embedding</span><span class="p">,</span> <span class="n">sfarim</span><span class="p">,</span> <span class="n">byPerek</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Plotting for UMAP.</span>
-<span class="sd">    Args:</span>
-<span class="sd">        sfarimToWords ():</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        The gmatria (int)</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>   
-
-    <span class="c1">### Pull out the sefer name - e.g. &quot;Amos&quot; from &quot;Amos 1&quot;</span>
-    <span class="k">if</span> <span class="n">byPerek</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">interactive</span><span class="p">:</span>
-        <span class="n">sfarim</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sefer</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">sefer</span> <span class="ow">in</span> <span class="n">sfarim</span><span class="p">]</span>
-        
-        
-    <span class="n">labels</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">sfarim</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Sefer&quot;</span><span class="p">])</span>
-    
-    <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
-        <span class="n">f</span> <span class="o">=</span> <span class="n">umap</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">interactive</span><span class="p">(</span><span class="n">embedding</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">[</span><span class="s2">&quot;Sefer&quot;</span><span class="p">],</span> <span class="n">hover_data</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">interactive_text_search</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">interactive_text_search_alpha_contrast</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">)</span>
-        <span class="n">show</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-<span class="c1">#         f = umap.plot.points(embedding, labels=labels[&quot;Sefer&quot;])</span>
-        
-<span class="c1">#         umap.plot.points(embedding, labels=labels[&quot;Sefer&quot;], theme=&#39;fire&#39;)</span>
-        <span class="n">umap</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">connectivity</span><span class="p">(</span><span class="n">embedding</span><span class="p">,</span> <span class="n">edge_bundling</span><span class="o">=</span><span class="s1">&#39;hammer&#39;</span><span class="p">,</span> <span class="n">show_points</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        
-
-<span class="k">def</span> <span class="nf">runUMAP</span><span class="p">(</span><span class="n">numNgramsToRun</span><span class="p">,</span> <span class="n">selectedSections</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">excludeSections</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">byPerek</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">removeExclusiveNgrams</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Handler function for UMAP.</span>
-<span class="sd">    Args:</span>
-<span class="sd">        sfarimToWords ():</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        The gmatria (int)</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">createdMatrix</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="k">for</span> <span class="n">sizeOfNgram</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">numNgramsToRun</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-
-        <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;ngram size:&quot;</span><span class="p">,</span> <span class="n">sizeOfNgram</span><span class="p">)</span>
-        
-        <span class="c1">### If user chooses something:</span>
-        <span class="k">if</span> <span class="n">selectedSections</span><span class="p">:</span>
-            <span class="n">seferPaths</span> <span class="o">=</span> <span class="n">getPathsForSections</span><span class="p">(</span><span class="n">selectedSections</span><span class="p">,</span> <span class="n">excludeSections</span> <span class="o">=</span> <span class="n">excludeSections</span><span class="p">)</span>
-            <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Running on </span><span class="si">{}</span><span class="s2"> items...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">seferPaths</span><span class="p">)))</span>
-            <span class="n">sfarimToWords</span><span class="p">,</span> <span class="n">sfarimToSizeOfSefer</span> <span class="o">=</span> <span class="n">getNgramCountsBySefer</span><span class="p">(</span><span class="n">seferPaths</span> <span class="o">=</span> <span class="n">seferPaths</span><span class="p">,</span> <span class="n">sizeOfNgram</span> <span class="o">=</span> <span class="n">sizeOfNgram</span><span class="p">,</span> <span class="n">byPerek</span> <span class="o">=</span> <span class="n">byPerek</span><span class="p">,</span> <span class="n">removeExclusiveNgrams</span> <span class="o">=</span> <span class="n">removeExclusiveNgrams</span><span class="p">)</span>
-         
-        <span class="c1">### For testing:</span>
-        <span class="c1">### If sections aren&#39;t put in, use getTanachNgramCountsBySefer or getTalmudNgramCountsBySefer</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">sfarimToWords</span><span class="p">,</span> <span class="n">sfarimToSizeOfSefer</span> <span class="o">=</span> <span class="n">getTalmudNgramCountsBySefer</span><span class="p">(</span><span class="n">sizeOfNgram</span> <span class="o">=</span> <span class="n">sizeOfNgram</span><span class="p">,</span> <span class="n">byPerek</span> <span class="o">=</span> <span class="n">byPerek</span><span class="p">,</span> <span class="n">removeExclusiveNgrams</span> <span class="o">=</span> <span class="n">removeExclusiveNgrams</span><span class="p">)</span>
-        
-        <span class="n">ngramMatrix</span> <span class="o">=</span> <span class="n">makeNgramMatrix</span><span class="p">(</span><span class="n">sfarimToWords</span><span class="p">,</span> <span class="n">sfarimToSizeOfSefer</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">createdMatrix</span><span class="p">:</span>
-            <span class="n">fullMatrix</span> <span class="o">=</span> <span class="n">ngramMatrix</span>
-            <span class="n">createdMatrix</span> <span class="o">=</span> <span class="kc">True</span>
-
-        <span class="k">if</span> <span class="n">createdMatrix</span><span class="p">:</span>
-            <span class="n">fullMatrix</span> <span class="o">=</span> <span class="n">hstack</span><span class="p">([</span><span class="n">fullMatrix</span><span class="p">,</span> <span class="n">ngramMatrix</span><span class="p">])</span>
-    
-    <span class="nb">print</span> <span class="p">(</span><span class="s2">&quot;Made matrix; now embedding&quot;</span><span class="p">)</span>       
-    <span class="n">sfarim</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">sfarimToSizeOfSefer</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-    <span class="n">embedding</span> <span class="o">=</span> <span class="n">getUMAPembedding</span><span class="p">(</span><span class="n">fullMatrix</span><span class="p">)</span>
-    <span class="n">plotUMAP</span><span class="p">(</span><span class="n">embedding</span><span class="p">,</span> <span class="n">sfarim</span><span class="p">,</span> <span class="n">byPerek</span><span class="p">,</span> <span class="n">interactive</span><span class="p">)</span>
-    
-    <span class="k">return</span> <span class="n">embedding</span><span class="p">,</span> <span class="n">sfarim</span>
-    
-    
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -15048,17 +14487,6 @@ var element = $('#0b4009c3-0616-47b7-b545-9f12779d30a5');
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="929-Prakim-of-Tanach">929 Prakim of Tanach<a class="anchor-link" href="#929-Prakim-of-Tanach">&#182;</a></h2>
 </div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">embedding</span><span class="p">,</span> <span class="n">sfarim</span> <span class="o">=</span> <span class="n">runUMAP</span><span class="p">(</span><span class="n">numNgramsToRun</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">byPerek</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">removeExclusiveNgrams</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-    </div>
 </div>
 </div>
 
@@ -15077,11 +14505,10 @@ Keeping all n-grams of size 1.
 In the 929 selected sections, there are 39995 unique words.
 ngram size: 2
 Removing 156551 ngrams that only appear in one section.
-In the 929 selected sections, there are 28101 unique words.
+In the 929 selected sections, there are 28101 unique ngrams.
 ngram size: 3
 Removing 215330 ngrams that only appear in one section.
-In the 929 selected sections, there are 15003 unique words.
-made matrix; now embedding
+In the 929 selected sections, there are 15003 unique ngrams.
 </pre>
 </div>
 </div>
@@ -15113,10 +14540,10 @@ made matrix; now embedding
 
 
 
-<div id="72662c0e-5926-4527-98b8-d15bd3f74155"></div>
+<div id="1f5a45cb-cfa0-4aa7-b5ed-0c9513a8ea68"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#72662c0e-5926-4527-98b8-d15bd3f74155');
+var element = $('#1f5a45cb-cfa0-4aa7-b5ed-0c9513a8ea68');
 (function(root) {
   function embed_document(root) {
     
@@ -15172,17 +14599,6 @@ var element = $('#72662c0e-5926-4527-98b8-d15bd3f74155');
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">embedding</span><span class="p">,</span> <span class="n">sfarim</span> <span class="o">=</span> <span class="n">runUMAP</span><span class="p">(</span><span class="n">numNgramsToRun</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">byPerek</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">selectedSections</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Halakhah/Shulchan Arukh&quot;</span><span class="p">],</span> <span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">removeExclusiveNgrams</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -15230,10 +14646,10 @@ made matrix; now embedding
 
 
 
-<div id="264e073f-92c7-417f-b83a-37f09ea216d7"></div>
+<div id="f403dec4-dcae-4983-be0b-7873d236c635"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#264e073f-92c7-417f-b83a-37f09ea216d7');
+var element = $('#f403dec4-dcae-4983-be0b-7873d236c635');
 (function(root) {
   function embed_document(root) {
     
@@ -15309,16 +14725,6 @@ var element = $('#264e073f-92c7-417f-b83a-37f09ea216d7');
     <div class="prompt"></div>
 
 
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/Users/jhostyk/anaconda3/envs/general/lib/python3.7/site-packages/umap/plot.py:850: UserWarning: Hammer edge bundling is expensive for large graphs!
-This may take a long time to compute!
-  &#34;Hammer edge bundling is expensive for large graphs!\n&#34;
-/Users/jhostyk/anaconda3/envs/general/lib/python3.7/site-packages/datashader/transfer_functions/__init__.py:303: RuntimeWarning: invalid value encountered in true_divide
-  scaled_data = (data - span[0])/(span[1] - span[0])
-</pre>
-</div>
-</div>
-
 <div class="output_area">
 
     <div class="prompt"></div>
@@ -15327,10 +14733,10 @@ This may take a long time to compute!
 
 
 
-<div id="bc5db42d-8499-4c04-a5c6-6fcedaa7b09d"></div>
+<div id="7f85c12b-e377-4641-91b6-37f63d928f30"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#bc5db42d-8499-4c04-a5c6-6fcedaa7b09d');
+var element = $('#7f85c12b-e377-4641-91b6-37f63d928f30');
 /* Put everything inside the global mpl namespace */
 window.mpl = {};
 
@@ -16122,13 +15528,6 @@ if (IPython.notebook.kernel != null) {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Sfarim-of-Tanach-+-Apocrypha">Sfarim of Tanach + Apocrypha<a class="anchor-link" href="#Sfarim-of-Tanach-+-Apocrypha">&#182;</a></h2>
 </div>
 </div>
@@ -16191,10 +15590,10 @@ made matrix; now embedding
 
 
 
-<div id="ad9ba632-b96d-4873-b4bb-609a37a3d968"></div>
+<div id="5409532c-15ca-4558-93aa-9b3875f4cb38"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ad9ba632-b96d-4873-b4bb-609a37a3d968');
+var element = $('#5409532c-15ca-4558-93aa-9b3875f4cb38');
 (function(root) {
   function embed_document(root) {
     
@@ -16235,7 +15634,7 @@ var element = $('#ad9ba632-b96d-4873-b4bb-609a37a3d968');
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Interpretation">Interpretation<a class="anchor-link" href="#Interpretation">&#182;</a></h3><ul>
 <li>Here, we ran on the full sfarim, without breaking them down into prakim. Many of the apocryphal texts are separate, at the top.</li>
-<li>Interestingly, Wisdom of Solomon is near Ecclesiastes. However, as pointed out by our colleague Ben Glass, this is actually odd because the Hebrew text we have for Wisdom of Solomon is a translation, as it was originally written in Greek.</li>
+<li>The Wisdom of Solomon is near Ecclesiastes. This is pretty interesting, because the Wisdom of Solomon was most likely originally written in Greek, and wasn't written by Solomon. Yet the Hebrew translation (written in 1885) from which we're working, is still rather similar to the Hebrew Ecclesiastes - a testament to the translator's skill.</li>
 </ul>
 
 </div>
@@ -16248,17 +15647,7 @@ var element = $('#ad9ba632-b96d-4873-b4bb-609a37a3d968');
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">embedding</span><span class="p">,</span> <span class="n">sfarim</span> <span class="o">=</span> <span class="n">runUMAP</span><span class="p">(</span><span class="n">numNgramsToRun</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">byPerek</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">removeExclusiveNgrams</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -16273,7 +15662,6 @@ var element = $('#ad9ba632-b96d-4873-b4bb-609a37a3d968');
 <pre>ngram size: 1
 Keeping all n-grams of size 1.
 In the 5350 selected sections, there are 112522 unique ngrams.
-made matrix; now embedding
 </pre>
 </div>
 </div>
@@ -16305,10 +15693,10 @@ made matrix; now embedding
 
 
 
-<div id="20796ff9-a36f-4203-a655-83b3629845b2"></div>
+<div id="4ce69254-fbb4-4e3f-8bf0-3c99fc043761"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#20796ff9-a36f-4203-a655-83b3629845b2');
+var element = $('#4ce69254-fbb4-4e3f-8bf0-3c99fc043761');
 (function(root) {
   function embed_document(root) {
     
@@ -16338,6 +15726,49 @@ var element = $('#20796ff9-a36f-4203-a655-83b3629845b2');
 </script>
 </div>
 
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">embedding</span><span class="p">,</span> <span class="n">sfarim</span> <span class="o">=</span> <span class="n">runUMAP</span><span class="p">(</span><span class="n">numNgramsToRun</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">byPerek</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">removeExclusiveNgrams</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>ngram size: 1
+Keeping all n-grams of size 1.
+In the 5350 selected sections, there are 112522 unique ngrams.
+ngram size: 2
+Removing 572684 ngrams that only appear in one section.
+In the 5350 selected sections, there are 180521 unique ngrams.
+ngram size: 3
+Removing 1002596 ngrams that only appear in one section.
+In the 5350 selected sections, there are 164825 unique ngrams.
+ngram size: 4
+Removing 1198009 ngrams that only appear in one section.
+In the 5350 selected sections, there are 123580 unique ngrams.
+made matrix; now embedding
+</pre>
+</div>
 </div>
 
 </div>
@@ -16411,10 +15842,10 @@ made matrix; now embedding
 
 
 
-<div id="ac6108d9-c495-410f-8cea-e3a596a52421"></div>
+<div id="aaa7a692-57ce-42cd-b3e7-5f3b0e9716ab"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#ac6108d9-c495-410f-8cea-e3a596a52421');
+var element = $('#aaa7a692-57ce-42cd-b3e7-5f3b0e9716ab');
 (function(root) {
   function embed_document(root) {
     
