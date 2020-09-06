@@ -15795,17 +15795,7 @@ Nevertheless, even among the large central cluster, we can still see general gro
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">embedding</span><span class="p">,</span> <span class="n">sfarim</span> <span class="o">=</span> <span class="n">runUMAP</span><span class="p">(</span><span class="n">numNgramsToRun</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">selectedSections</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Kabbalah&quot;</span><span class="p">],</span> <span class="n">byPerek</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">removeExclusiveNgrams</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -15818,9 +15808,8 @@ Nevertheless, even among the large central cluster, we can still see general gro
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Details:
-37 items...
-Keeping all n-grams of size 1.
-In the 1876 selected sections, there are 250070 unique ngrams.
+37 items.
+250070 unique n-grams of size 1.
 </pre>
 </div>
 </div>
@@ -15906,17 +15895,6 @@ var element = $('#f1e57957-8116-4b63-bfae-eea692c3f383');
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">embedding</span><span class="p">,</span> <span class="n">sfarim</span> <span class="o">=</span> <span class="n">runUMAP</span><span class="p">(</span><span class="n">numNgramsToRun</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">selectedSections</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Chasidut&quot;</span><span class="p">],</span> <span class="n">byPerek</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">removeExclusiveNgrams</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -15929,21 +15907,11 @@ var element = $('#f1e57957-8116-4b63-bfae-eea692c3f383');
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Details:
-58 items...
-Keeping all n-grams of size 1.
-In the 58 selected sections, there are 392491 unique ngrams.
-ngram size: 2
-Running on 58 items...
-Removing 4468422 ngrams that only appear in one section.
-In the 58 selected sections, there are 940190 unique ngrams.
-ngram size: 3
-Running on 58 items...
-Removing 9913202 ngrams that only appear in one section.
-In the 58 selected sections, there are 554502 unique ngrams.
-ngram size: 4
-Running on 58 items...
-Removing 12021827 ngrams that only appear in one section.
-In the 58 selected sections, there are 228916 unique ngrams.
+58 sfarim.
+392491 n-grams of size 1.
+940190 n-grams of size 2. (Removed 4468422 that only appeared in one text.)
+554502 n-grams of size 3. (Removed 9913202 that only appeared in one text.)
+228916 n-grams of size 4. (Removed 12021827 that only appeared in one text.)
 </pre>
 </div>
 </div>
@@ -16024,108 +15992,7 @@ var element = $('#a5f8a293-26dc-470d-b687-8166c16301e0');
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sfarim</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Breslov/Likutei Maharan&quot;</span><span class="p">,</span> <span class="s2">&quot;Breslov/Sipurei Maasiyos&quot;</span><span class="p">,</span> <span class="s2">&quot;Breslov/Sefer HaMidot&quot;</span><span class="p">,</span> <span class="s2">&quot;Pri Tzadik&quot;</span><span class="p">,</span> <span class="s2">&quot;R&#39; Tzadok HaKohen/Tzidkat HaTzadik&quot;</span><span class="p">,</span> <span class="s2">&quot;R&#39; Tzadok HaKohen/Resisei Layla&quot;</span><span class="p">,</span> <span class="s2">&quot;Shaar HaEmunah Ve&#39;Yesod HaChassidut&quot;</span><span class="p">,</span> <span class="s2">&quot;Agra DeKala&quot;</span><span class="p">,</span> <span class="s2">&quot;Arvei Nachal&quot;</span><span class="p">,</span> <span class="s2">&quot;Avodat Yisrael&quot;</span><span class="p">,</span> <span class="s2">&quot;Baal Shem Tov&quot;</span><span class="p">,</span> <span class="s2">&quot;Beit Aharon&quot;</span><span class="p">,</span> <span class="s2">&quot;Bnei Yissaschar&quot;</span><span class="p">,</span> <span class="s2">&quot;Chiddushei HaRim on Torah&quot;</span><span class="p">,</span> <span class="s2">&quot;Chovat HaTalmidim&quot;</span><span class="p">,</span> <span class="s2">&quot;Darkhei Yesharim&quot;</span><span class="p">,</span> <span class="s2">&quot;Degel Machaneh Ephraim&quot;</span><span class="p">,</span> <span class="s2">&quot;Derekh Mitsvotekha&quot;</span><span class="p">,</span> <span class="s2">&quot;Divrei Emet&quot;</span><span class="p">,</span> <span class="s2">&quot;Keter Shem Tov&quot;</span><span class="p">,</span> <span class="s2">&quot;Maor VaShemesh&quot;</span><span class="p">,</span> <span class="s2">&quot;Me&#39;or Einayim&quot;</span><span class="p">,</span> <span class="s2">&quot;Mei HaShiloach&quot;</span><span class="p">,</span> <span class="s2">&quot;Ohev Yisrael&quot;</span><span class="p">,</span> <span class="s2">&quot;Pri Tzadik&quot;</span><span class="p">,</span> <span class="s2">&quot;Sefat Emet&quot;</span><span class="p">,</span> <span class="s2">&quot;Shem MiShmuel&quot;</span><span class="p">,</span> <span class="s2">&quot;Shivchei HaBesht&quot;</span><span class="p">,</span> <span class="s2">&quot;Sod Yesharim&quot;</span><span class="p">,</span> <span class="s2">&quot;Tiferet Shlomo&quot;</span><span class="p">,</span> <span class="s2">&quot;Tiferet Yosef&quot;</span><span class="p">,</span> <span class="s2">&quot;Yakar MiPaz&quot;</span><span class="p">,</span> <span class="s2">&quot;Yismach Moshe&quot;</span><span class="p">]</span>
-<span class="n">sfarim</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Chasidut/&quot;</span> <span class="o">+</span> <span class="n">sefer</span> <span class="k">for</span> <span class="n">sefer</span> <span class="ow">in</span> <span class="n">sfarim</span><span class="p">]</span>
-<span class="n">embedding</span><span class="p">,</span> <span class="n">sfarim</span> <span class="o">=</span> <span class="n">runUMAP</span><span class="p">(</span><span class="n">numNgramsToRun</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">selectedSections</span> <span class="o">=</span> <span class="n">sfarim</span><span class="p">,</span> <span class="n">byPerek</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">removeExclusiveNgrams</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Details:
-30 items...
-Keeping all n-grams of size 1.
-In the 1070 selected sections, there are 297705 unique ngrams.
-ngram size: 2
-Running on 30 items...
-Removing 2889609 ngrams that only appear in one section.
-In the 1070 selected sections, there are 730109 unique ngrams.
-ngram size: 3
-Running on 30 items...
-Removing 6069599 ngrams that only appear in one section.
-In the 1067 selected sections, there are 462350 unique ngrams.
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ValueError</span>                                Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-9-1e136add5b4e&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> sfarim <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#34;Breslov/Likutei Maharan&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Breslov/Sipurei Maasiyos&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Breslov/Sefer HaMidot&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Pri Tzadik&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;R&#39; Tzadok HaKohen/Tzidkat HaTzadik&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;R&#39; Tzadok HaKohen/Resisei Layla&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Shaar HaEmunah Ve&#39;Yesod HaChassidut&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Agra DeKala&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Arvei Nachal&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Avodat Yisrael&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Baal Shem Tov&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Beit Aharon&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Bnei Yissaschar&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Chiddushei HaRim on Torah&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Chovat HaTalmidim&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Darkhei Yesharim&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Degel Machaneh Ephraim&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Derekh Mitsvotekha&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Divrei Emet&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Keter Shem Tov&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Maor VaShemesh&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Me&#39;or Einayim&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Mei HaShiloach&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Ohev Yisrael&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Pri Tzadik&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Sefat Emet&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Shem MiShmuel&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Shivchei HaBesht&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Sod Yesharim&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Tiferet Shlomo&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Tiferet Yosef&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Yakar MiPaz&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;Yismach Moshe&#34;</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">      2</span> sfarim <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#34;Chasidut/&#34;</span> <span class="ansi-blue-fg">+</span> sefer <span class="ansi-green-fg">for</span> sefer <span class="ansi-green-fg">in</span> sfarim<span class="ansi-blue-fg">]</span>
-<span class="ansi-green-fg">----&gt; 3</span><span class="ansi-red-fg"> </span>embedding<span class="ansi-blue-fg">,</span> sfarim <span class="ansi-blue-fg">=</span> runUMAP<span class="ansi-blue-fg">(</span>numNgramsToRun <span class="ansi-blue-fg">=</span> <span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">,</span> selectedSections <span class="ansi-blue-fg">=</span> sfarim<span class="ansi-blue-fg">,</span> byPerek <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span> interactive <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">True</span><span class="ansi-blue-fg">,</span> removeExclusiveNgrams <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">&lt;ipython-input-7-2d2a9cdff17a&gt;</span> in <span class="ansi-cyan-fg">runUMAP</span><span class="ansi-blue-fg">(numNgramsToRun, selectedSections, excludeSections, byPerek, interactive, removeExclusiveNgrams)</span>
-<span class="ansi-green-intense-fg ansi-bold">    124</span> 
-<span class="ansi-green-intense-fg ansi-bold">    125</span>         <span class="ansi-green-fg">if</span> createdMatrix<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 126</span><span class="ansi-red-fg">             </span>fullMatrix <span class="ansi-blue-fg">=</span> hstack<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span>fullMatrix<span class="ansi-blue-fg">,</span> ngramMatrix<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    127</span> 
-<span class="ansi-green-intense-fg ansi-bold">    128</span>     print <span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;Made matrix; now embedding&#34;</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">~/anaconda3/envs/general/lib/python3.7/site-packages/scipy/sparse/construct.py</span> in <span class="ansi-cyan-fg">hstack</span><span class="ansi-blue-fg">(blocks, format, dtype)</span>
-<span class="ansi-green-intense-fg ansi-bold">    463</span> 
-<span class="ansi-green-intense-fg ansi-bold">    464</span>     &#34;&#34;&#34;
-<span class="ansi-green-fg">--&gt; 465</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">return</span> bmat<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">[</span>blocks<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> format<span class="ansi-blue-fg">=</span>format<span class="ansi-blue-fg">,</span> dtype<span class="ansi-blue-fg">=</span>dtype<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    466</span> 
-<span class="ansi-green-intense-fg ansi-bold">    467</span> 
-
-<span class="ansi-green-fg">~/anaconda3/envs/general/lib/python3.7/site-packages/scipy/sparse/construct.py</span> in <span class="ansi-cyan-fg">bmat</span><span class="ansi-blue-fg">(blocks, format, dtype)</span>
-<span class="ansi-green-intense-fg ansi-bold">    559</span>     elif (M == 1 and format in (None, &#39;csc&#39;)
-<span class="ansi-green-intense-fg ansi-bold">    560</span>           and all(isinstance(b, csc_matrix) for b in blocks.flat)):
-<span class="ansi-green-fg">--&gt; 561</span><span class="ansi-red-fg">         </span>A <span class="ansi-blue-fg">=</span> _compressed_sparse_stack<span class="ansi-blue-fg">(</span>blocks<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">,</span><span class="ansi-blue-fg">:</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    562</span>         <span class="ansi-green-fg">if</span> dtype <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    563</span>             A <span class="ansi-blue-fg">=</span> A<span class="ansi-blue-fg">.</span>astype<span class="ansi-blue-fg">(</span>dtype<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">~/anaconda3/envs/general/lib/python3.7/site-packages/scipy/sparse/construct.py</span> in <span class="ansi-cyan-fg">_compressed_sparse_stack</span><span class="ansi-blue-fg">(blocks, axis)</span>
-<span class="ansi-green-intense-fg ansi-bold">    416</span>     <span class="ansi-green-fg">for</span> b <span class="ansi-green-fg">in</span> blocks<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    417</span>         <span class="ansi-green-fg">if</span> b<span class="ansi-blue-fg">.</span>shape<span class="ansi-blue-fg">[</span>other_axis<span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">!=</span> constant_dim<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 418</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">raise</span> ValueError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;incompatible dimensions for axis %d&#39;</span> <span class="ansi-blue-fg">%</span> other_axis<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    419</span>         indices<span class="ansi-blue-fg">[</span>sum_indices<span class="ansi-blue-fg">:</span>sum_indices<span class="ansi-blue-fg">+</span>b<span class="ansi-blue-fg">.</span>indices<span class="ansi-blue-fg">.</span>size<span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> b<span class="ansi-blue-fg">.</span>indices
-<span class="ansi-green-intense-fg ansi-bold">    420</span>         sum_indices <span class="ansi-blue-fg">+=</span> b<span class="ansi-blue-fg">.</span>indices<span class="ansi-blue-fg">.</span>size
-
-<span class="ansi-red-fg">ValueError</span>: incompatible dimensions for axis 0</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 </div>
     </div>
