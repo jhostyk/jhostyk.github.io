@@ -14546,7 +14546,6 @@ var element = $('#2cda54a1-6118-4110-aa17-22ba7672142a');
 </div>
 
 </div>
-</div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
@@ -14655,7 +14654,6 @@ var element = $('#9e809656-7d99-48d1-a376-27cdfefc2ce9');
 </div>
 
 </div>
-</div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
@@ -14678,17 +14676,7 @@ var element = $('#9e809656-7d99-48d1-a376-27cdfefc2ce9');
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">embedding</span><span class="p">,</span> <span class="n">sfarim</span> <span class="o">=</span> <span class="n">runUMAP</span><span class="p">(</span><span class="n">numNgramsToRun</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">byPerek</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">selectedSections</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Halakhah/Shulchan Arukh&quot;</span><span class="p">],</span> <span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">removeExclusiveNgrams</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -14700,10 +14688,9 @@ var element = $('#9e809656-7d99-48d1-a376-27cdfefc2ce9');
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>ngram size: 1
-Running on 66 items...
-Keeping all n-grams of size 1.
-In the 66 selected sections, there are 383227 unique words.
+<pre>Details:
+66 items.
+383227 unique unique n-grams of size 1.
 </pre>
 </div>
 </div>
@@ -14792,36 +14779,7 @@ var element = $('#f004fe7b-8962-4fd1-8f09-cd276b1e2d6e');
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">plotUMAP</span><span class="p">(</span><span class="n">embedding</span><span class="p">,</span> <span class="n">sfarim</span><span class="p">,</span> <span class="n">byPerek</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">interactive</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/Users/jhostyk/anaconda3/envs/general/lib/python3.7/site-packages/umap/plot.py:850: UserWarning: Hammer edge bundling is expensive for large graphs!
-This may take a long time to compute!
-  &#34;Hammer edge bundling is expensive for large graphs!\n&#34;
-/Users/jhostyk/anaconda3/envs/general/lib/python3.7/site-packages/datashader/transfer_functions/__init__.py:303: RuntimeWarning: invalid value encountered in true_divide
-  scaled_data = (data - span[0])/(span[1] - span[0])
-</pre>
-</div>
-</div>
 
 <div class="output_area">
 
@@ -15652,8 +15610,8 @@ if (IPython.notebook.kernel != null) {
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>ngram size: 1
-Running on 53 items...
+<pre>Details:
+53 items...
 Keeping all n-grams of size 1.
 In the 53 selected sections, there are 55534 unique ngrams.
 </pre>
@@ -15888,8 +15846,8 @@ var element = $('#5a5695ee-462e-4c9a-853c-50f7eb28085f');
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>ngram size: 1
-Running on 37 items...
+<pre>Details:
+37 items...
 Keeping all n-grams of size 1.
 In the 1876 selected sections, there are 250070 unique ngrams.
 </pre>
@@ -15999,8 +15957,8 @@ var element = $('#f1e57957-8116-4b63-bfae-eea692c3f383');
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>ngram size: 1
-Running on 58 items...
+<pre>Details:
+58 items...
 Keeping all n-grams of size 1.
 In the 58 selected sections, there are 392491 unique ngrams.
 ngram size: 2
@@ -16120,8 +16078,8 @@ var element = $('#a5f8a293-26dc-470d-b687-8166c16301e0');
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>ngram size: 1
-Running on 30 items...
+<pre>Details:
+30 items...
 Keeping all n-grams of size 1.
 In the 1070 selected sections, there are 297705 unique ngrams.
 ngram size: 2
