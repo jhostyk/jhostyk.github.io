@@ -13141,8 +13141,7 @@ Please reach out with any questions, or suggestions/requests for additional plot
 <p>Our code is available on our <a href="https://github.com/jhostyk/TorahScraping/blob/master/SeferSimilarityMap.ipynb">github</a>.</p>
 
 </div>
-</div>
-</div>
+
 
 
 
@@ -14461,20 +14460,9 @@ var element = $('#d52f34ce-54b3-41c2-9663-05845094610d');
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="All-Books-of-Sefaria">All Books of Sefaria<a class="anchor-link" href="#All-Books-of-Sefaria">&#182;</a></h2><p>This plot shows every indiividual book of Sefaria.<br>
-You can search for sfarim by title in the box below! However, because many of the sfarim are so densely packed together, they aren't highlighted as well as in the more sparse plots below.</p>
+You can search for sfarim by title in the box below!</p>
 
 </div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">embedding</span><span class="p">,</span> <span class="n">sfarim</span> <span class="o">=</span> <span class="n">runUMAP</span><span class="p">(</span><span class="n">numNgramsToRun</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">selectedSections</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.&quot;</span><span class="p">],</span> <span class="n">byPerek</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">removeExclusiveNgrams</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-    </div>
 </div>
 </div>
 
@@ -14488,11 +14476,9 @@ You can search for sfarim by title in the box below! However, because many of th
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>ngram size: 1
-Running on 4338 items...
-Keeping all n-grams of size 1.
-In the 4338 selected sections, there are 1923441 unique ngrams.
-Made matrix; now embedding
+<pre>Details:
+4338 texts.
+1923441 unique n-grams of size 1.
 </pre>
 </div>
 </div>
@@ -14585,17 +14571,7 @@ var element = $('#2cda54a1-6118-4110-aa17-22ba7672142a');
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">embedding</span><span class="p">,</span> <span class="n">sfarim</span> <span class="o">=</span> <span class="n">runUMAP</span><span class="p">(</span><span class="n">numNgramsToRun</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">byPerek</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">removeExclusiveNgrams</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -14607,16 +14583,11 @@ var element = $('#2cda54a1-6118-4110-aa17-22ba7672142a');
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>ngram size: 1
-Keeping all n-grams of size 1.
-In the 929 selected sections, there are 39995 unique words.
-ngram size: 2
-Removing 156551 ngrams that only appear in one section.
-In the 929 selected sections, there are 28101 unique words.
-ngram size: 3
-Removing 215330 ngrams that only appear in one section.
-In the 929 selected sections, there are 15003 unique words.
-made matrix; now embedding
+<pre>Details:
+929 prakim.
+39995 unique n-grams of size 1.
+28101 n-grams of size 2. (Removed 156551 that only appeared in one text.)
+15003 n-grams of size 3. (Removed 215330 that only appeared in one text.)
 </pre>
 </div>
 </div>
@@ -14733,7 +14704,6 @@ var element = $('#9e809656-7d99-48d1-a376-27cdfefc2ce9');
 Running on 66 items...
 Keeping all n-grams of size 1.
 In the 66 selected sections, there are 383227 unique words.
-made matrix; now embedding
 </pre>
 </div>
 </div>
@@ -15686,7 +15656,6 @@ if (IPython.notebook.kernel != null) {
 Running on 53 items...
 Keeping all n-grams of size 1.
 In the 53 selected sections, there are 55534 unique ngrams.
-made matrix; now embedding
 </pre>
 </div>
 </div>
@@ -15811,7 +15780,6 @@ In the 5350 selected sections, there are 164825 unique ngrams.
 ngram size: 4
 Removing 1198009 ngrams that only appear in one section.
 In the 5350 selected sections, there are 123580 unique ngrams.
-made matrix; now embedding
 </pre>
 </div>
 </div>
@@ -15924,7 +15892,6 @@ var element = $('#5a5695ee-462e-4c9a-853c-50f7eb28085f');
 Running on 37 items...
 Keeping all n-grams of size 1.
 In the 1876 selected sections, there are 250070 unique ngrams.
-made matrix; now embedding
 </pre>
 </div>
 </div>
@@ -16048,7 +16015,6 @@ ngram size: 4
 Running on 58 items...
 Removing 12021827 ngrams that only appear in one section.
 In the 58 selected sections, there are 228916 unique ngrams.
-Made matrix; now embedding
 </pre>
 </div>
 </div>
