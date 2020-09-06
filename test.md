@@ -15782,7 +15782,7 @@ var element = $('#5a5695ee-462e-4c9a-853c-50f7eb28085f');
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Interpretation:">Interpretation:<a class="anchor-link" href="#Interpretation:">&#182;</a></h3><p>This plot shows an interesting result: most pages of the Talmud are not that differentiable from each other! Most of the amudim do not form isolated clusters, other than those of Brachot + Shabbos, and Nedarim + Niddah + Sotah.<br>
 We believe this is because of the repetition of common words/phrases in the Talmud.<br>
-Nevertheless, even among the large central cluster, we can see general groupings of different masechtot and topics.</p>
+Nevertheless, even among the large central cluster, we can still see general groupings of different masechtot and topics.</p>
 
 <p>We believe this can be extremely useful as a pedagogical aid! If you've begun learning a certain page of gemara, you can search for it here, and then pan over nearby amudim to find ones that have similar vocabulary/word usage.</p>
 </div>
