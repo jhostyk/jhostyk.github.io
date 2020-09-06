@@ -14690,32 +14690,6 @@ var element = $('#d3c37683-fb96-4698-beb6-275cf79ec513');
 </div>
 </div>
 
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-
-
-
-
-
-
-  <div class="bk-root" id="84c3ccd8-b3c5-4b0f-85cf-29b1004bac20" data-root-id="1148"></div>
-
-</div>
-
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-
-
 
 <div id="5f333b8b-6ce2-4888-ba4a-1f68c10a8881"></div>
 <div class="output_subarea output_javascript ">
@@ -16018,16 +15992,7 @@ var element = $('#97f63865-fc1f-4ffe-84f8-4640601cd825');
 
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
 
-    </div>
-</div>
 </div>
 
 </div>
