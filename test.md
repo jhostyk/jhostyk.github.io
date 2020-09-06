@@ -14758,7 +14758,6 @@ var element = $('#f004fe7b-8962-4fd1-8f09-cd276b1e2d6e');
 </div>
 
 </div>
-</div>
 
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
@@ -15668,7 +15667,6 @@ var element = $('#a3d06357-2cd4-43fa-8d26-dfbe8176c249');
 </div>
 </div>
 
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -15776,7 +15774,6 @@ var element = $('#5a5695ee-462e-4c9a-853c-50f7eb28085f');
 </div>
 </div>
 
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -15879,11 +15876,10 @@ var element = $('#f1e57957-8116-4b63-bfae-eea692c3f383');
 </div>
 </div>
 
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Interpretation">Interpretation<a class="anchor-link" href="#Interpretation">&#182;</a></h3><p>Until now, we've tried to show texts that have some relevance, so that the comparisons are more meaningful. This graph of Kabbalah texts shows the strength of the method when comparing wildly varied texts. The Zohar/Tikkunei Zohar texts are completely on their own to the side! As are a few of the other texts, with the remainder clustering together.</p>
+<h3 id="Interpretation">Interpretation<a class="anchor-link" href="#Interpretation">&#182;</a></h3><p>The Tanach and Talmud graphs compare texts that share words and topics, so that the comparisons are more meaningful. This graph of Kabbalah texts shows the strength of the method when comparing wildly varied texts. The Zohar/Tikkunei Zohar texts are completely on their own to the side! As are a few of the other texts, with the remainder clustering together.</p>
 
 </div>
 </div>
@@ -15981,7 +15977,6 @@ var element = $('#a5f8a293-26dc-470d-b687-8166c16301e0');
 </div>
 </div>
 
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -15990,8 +15985,6 @@ var element = $('#a5f8a293-26dc-470d-b687-8166c16301e0');
 <li>The two Chabad sfarim (Tanya and Derech Mitzvosecha) cluster together.</li>
 </ul>
 
-</div>
-</div>
 
 
 </div>
