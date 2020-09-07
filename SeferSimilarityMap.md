@@ -14663,6 +14663,7 @@ var element = $('#9e809656-7d99-48d1-a376-27cdfefc2ce9');
 <li>However, some are found in separate clusters. For example, certain chapters of Ezra/Daniel cluster on their own. These are the only Aramaic chapters in Tanach, so they don't share any words with other chapters, and cluster separately!<br></li>
 <li>Ezra and Nehemia are near each other, because of their duplicated passages.<br></li>
 <li>The 5 books of the Torah are all mostly near each other, with each comprising a mostly distinct cluster.</li>
+<li>Job 1, 2, and 42, which set up the narrative structure of the sefer and are distinct from the other chapters, are found in a different cluster than the other chapters.</li>
 </ul>
 
 </div>
