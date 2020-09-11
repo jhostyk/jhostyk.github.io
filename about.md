@@ -1,6 +1,7 @@
 ---
 layout: page
 title: About
+
 ---
 
 Sefer Similarity Map is an exploratory tool to help uncover the substructure of books/chapters of Tanach, Talmud, and other Jewish texts, and visualize the underlying relationships between them.<br>
