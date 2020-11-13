@@ -14773,13 +14773,10 @@ var element = $('#f004fe7b-8962-4fd1-8f09-cd276b1e2d6e');
 <li>The Magen Avraham on Orach Chaim is near three of its subcommentators: Machazitz haShekel, Levushei Serad, and Rabbi Akiva Eiger. The latter is also near Turei Zahav (the Taz), upon which Rabbi Akiva Eger wrote commentary. <br></li>
 <li>The Be’ur HaGra and Be’er HaGolah are both terse commentaries whose main purpose is to provide cross-references, hence their separation from the rest of the supercommentaries and their proximity to one another. <br></li>
 </ul>
-<h3 id="Edge-Visualization">Edge Visualization<a class="anchor-link" href="#Edge-Visualization">&#182;</a></h3><p>Below, we show the connections between different clusters. These show the relative strength/distances between groupings.</p>
-
 </div>
 </div>
 </div>
 
-BONKERS
 <div class="output_area">
 
     <div class="prompt"></div>
