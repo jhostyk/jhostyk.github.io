@@ -21,6 +21,17 @@ We therefore expanded to phrases - or “n-grams”. (A bigram is a two-word phr
 Dimensionality reduction is a technique to convert this high-dimensional data into something more manageable for us. We used a method called <a href="https://umap-learn.readthedocs.io/en/latest/">UMAP</a> to reduce the dimensionality of our ngram-count matrix so that we could visualize the final result.<br>
 Texts that were near each other in the original high-dimensional space (because they have similar rates of the same words) should also be close in their UMAP projections into this new 2-D space. This means that texts that group together in the UMAP space (shown in our plots below), should truly have been similar in the high-dimensional space, meaning they should have similar values in the matrix, and should use similar rates of the same words. Clusters in our plots below should therefore truly represent similar texts!</p>
 <h3 id="limitations-">Limitations:</h3>
-
+<p>Using raw counts is not ideal - longer texts will have higher values overall, which can throw off the clustering. Typically, you would normalize the values based on their frequency in the corpus as a whole. <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf">tf-idf</a> is a common method; we played around with some custom scoring metrics, but did not include them below.<br>
+Natural Language Processing (NLP) techniques can add more nuance to the method. For example, we don’t account for prepositions: &quot;והיה&quot; is counted differently than &quot;היה&quot;, while ideally we should lemmatize them and count them as the same word. However, the vast amounts of data should actually compensate for missing on the benefits NLP could bring to the table.<br>
+Similarly, we did not remove extremely common words. This makes comparisons of highly-repetitive texts difficult. When we ran our method on amudim in the Talmud, we produced two large clusters, instead of many highly differentiable ones. We believe this is because most amudim share a lot of similar words, which overwhelms their unique ones.<br>
+The method is slowed down by the number of texts selected for comparison. The number of features does not affect UMAP’s runtime significantly: a corpus of 200,000 words does not run that much slower than one of 50,000 words. However, a comparison of 40 texts runs extremely quickly, while 900 texts runs over a few minutes, and the 5,350 amudim of the Talmud took very long to run.</p>
+<h3 id="results-usage">Results/Usage</h3>
+<p>Our code is below, with interactive results at the bottom. We ran some analyses comparing full sfarim, and some on subsections (e.g. prakim of Tanach, amudim of Talmud).<br>
+By mousing over different dots, you can see the texts in the comparison. You can also search above each graph to highlight specifics texts within it.</p>
+<p>We included some observations with each comparison. Let us know if you find any other interesting connections!<br></p>
+<h3 id="contact">Contact</h3>
+<p>We can be reached at jhostyk [at] gmail.com and abzaloum [at] gmail.com.<br>
+Please reach out with any questions, or suggestions/requests for additional plots!</p>
+<p>Our code is available on our <a href="https://github.com/jhostyk/TorahScraping/blob/master/SeferSimilarityMap.ipynb">github</a>.</p>
 
 </div>
