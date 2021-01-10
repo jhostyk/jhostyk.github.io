@@ -8,6 +8,8 @@ permalink: about.html
 
 <p>Sefer Similarity Map is an exploratory tool to help uncover the substructure of books/chapters of Tanach, Talmud, and other Jewish texts, and visualize the underlying relationships between them.<br>
 These relationships can illuminate historical, authorial, linguistic, and stylistic connections between texts. The tool can also pick out related texts to any that one is currently learning or teaching.<br></p>
-
+<h3 id="introduction">Introduction</h3>
+<p>To start measuring similarity between texts, we consider the rates of words and phrases in each individual text. Other characteristics of the texts, such as theorized date of composition or author, were not included in the model, allowing the similarities along these attributes to emerge from the comparison of the texts themselves. This <a href="http://www.informatica.si/index.php/informatica/article/viewFile/67/59">has been shown to work well</a>, allowing texts to be clustered together merely based on counts of words.</p>
+<p>Overall, this is a lot of data! There are around 40,000 unique words in Tanach. We have to keep track of each sefer’s rates of each of those words! That’s big enough if we just use 39 sfarim. If we switch to using subsections (e.g. the 929 prakim of Tanach), our table grows even larger.</p>
 
 </div>
