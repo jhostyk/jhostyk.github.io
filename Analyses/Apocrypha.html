@@ -1,0 +1,116 @@
+---
+layout: page
+title: "Apocrypha"
+permalink: Apocrypha.html
+---
+
+{% include bokehPlotting.html %}
+
+<div class="page">
+
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Sfarim-of-Tanach-+-Apocrypha">Sfarim of Tanach + Apocrypha<a class="anchor-link" href="#Sfarim-of-Tanach-+-Apocrypha">&#182;</a></h2>
+</div>
+</div>
+</div>
+
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Details:
+53 items.
+55534 unique n-grams of size 1.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+<div class="output_html rendered_html output_subarea ">
+
+
+
+
+
+
+  <div class="bk-root" id="7ed0c4f2-b74b-4495-ad55-02eb084e4063" data-root-id="1385"></div>
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+
+
+
+<div id="a3d06357-2cd4-43fa-8d26-dfbe8176c249"></div>
+<div class="output_subarea output_javascript ">
+<script type="text/javascript">
+var element = $('#a3d06357-2cd4-43fa-8d26-dfbe8176c249');
+(function(root) {
+  function embed_document(root) {
+    
+  var docs_json = {"8ad664f5-4fa9-47ef-a072-78ff36ff7587":{"roots":{"references":[{"attributes":{"children":[{"id":"1383"},{"id":"1345"}]},"id":"1385","type":"Column"},{"attributes":{"js_property_callbacks":{"change:value":[{"id":"1384"}]},"title":"Search:"},"id":"1383","type":"TextInput"},{"attributes":{"active_drag":"auto","active_inspect":"auto","active_multi":null,"active_scroll":"auto","active_tap":"auto","tools":[{"id":"1362"},{"id":"1363"},{"id":"1364"},{"id":"1365"},{"id":"1366"},{"id":"1367"},{"id":"1369"}]},"id":"1370","type":"Toolbar"},{"attributes":{},"id":"1420","type":"Selection"},{"attributes":{"args":{"matching_alpha":0.95,"non_matching_alpha":0.05,"search_columns":["Sefer","label"],"source":{"id":"1344"}},"code":"\n                    var data = source.data;\n                    var text_search = cb_obj.value;\n                    \n                    var search_columns_dict = {}\n                    for (var col in search_columns){\n                        search_columns_dict[col] = search_columns[col]\n                    }\n                    \n                    // Loop over columns and values\n                    // If there is no match for any column for a given row, change the alpha value\n                    var string_match = false;\n                    for (var i = 0; i < data.x.length; i++) {\n                        string_match = false\n                        for (var j in search_columns_dict) {\n                            if (String(data[search_columns_dict[j]][i]).includes(text_search) ) {\n                                string_match = true\n                            }\n                        }\n                        if (string_match){\n                            data['alpha'][i] = matching_alpha\n                        }else{\n                            data['alpha'][i] = non_matching_alpha\n                        }\n                    }\n                    source.change.emit();\n                "},"id":"1384","type":"CustomJS"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"field":"color"},"line_alpha":{"value":0.1},"line_color":{"field":"color"},"size":{"units":"screen","value":10},"x":{"field":"x"},"y":{"field":"y"}},"id":"1380","type":"Circle"},{"attributes":{},"id":"1355","type":"BasicTicker"},{"attributes":{},"id":"1359","type":"BasicTicker"},{"attributes":{"formatter":{"id":"1417"},"ticker":{"id":"1355"},"visible":false},"id":"1354","type":"LinearAxis"},{"attributes":{"callback":null,"tooltips":[["Sefer","@Sefer"]]},"id":"1369","type":"HoverTool"},{"attributes":{"bottom_units":"screen","fill_alpha":0.5,"fill_color":"lightgrey","left_units":"screen","level":"overlay","line_alpha":1.0,"line_color":"black","line_dash":[4,4],"line_width":2,"right_units":"screen","top_units":"screen"},"id":"1368","type":"BoxAnnotation"},{"attributes":{"formatter":{"id":"1415"},"ticker":{"id":"1359"},"visible":false},"id":"1358","type":"LinearAxis"},{"attributes":{"axis":{"id":"1354"},"ticker":null,"visible":false},"id":"1357","type":"Grid"},{"attributes":{},"id":"1419","type":"UnionRenderers"},{"attributes":{},"id":"1415","type":"BasicTickFormatter"},{"attributes":{},"id":"1363","type":"WheelZoomTool"},{"attributes":{"text":""},"id":"1414","type":"Title"},{"attributes":{"axis":{"id":"1358"},"dimension":1,"ticker":null,"visible":false},"id":"1361","type":"Grid"},{"attributes":{},"id":"1367","type":"HelpTool"},{"attributes":{},"id":"1366","type":"ResetTool"},{"attributes":{"source":{"id":"1344"}},"id":"1382","type":"CDSView"},{"attributes":{"fill_alpha":{"field":"alpha"},"fill_color":{"field":"color"},"line_alpha":{"field":"alpha"},"line_color":{"field":"color"},"size":{"units":"screen","value":10},"x":{"field":"x"},"y":{"field":"y"}},"id":"1379","type":"Circle"},{"attributes":{"data":{"Sefer":["Amos","Ben Sira","Book of Jubilees","Book of Tobit","Daniel","Deuteronomy","Ecclesiastes","Esther","Exodus","Ezekiel","Ezra","Genesis","Habakkuk","Haggai","Hosea","I Chronicles","I Kings","I Samuel","II Chronicles","II Kings","II Samuel","Isaiah","Jeremiah","Job","Joel","Jonah","Joshua","Judges","Lamentations","Letter of Aristeas","Leviticus","Malachi","Megillat Antiochus","Micah","Nahum","Nehemiah","Numbers","Obadiah","Prayer of Manasseh","Proverbs","Psalm 151","Psalm CLIV","Psalms","Ruth","Sefer Yehudit","Song of Songs","The Book of Maccabees I","The Book of Maccabees II","The Book of Susanna","The Testaments of the Twelve Patriarchs","The Wisdom of Solomon","Zechariah","Zephaniah"],"alpha":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"color":["#9e0142","#a70b44","#b11747","#bc2249","#c72e4c","#d23a4e","#d9444d","#df4e4b","#e55749","#eb6046","#f26944","#f57547","#f7814c","#f98e52","#fa9857","#fca55d","#fdb163","#fdbb6c","#fdc574","#fece7c","#fed884","#fee18d","#fee797","#feeda1","#fff3ac","#fffab6","#ffffbe","#fbfdb8","#f6fbb0","#f1f9a9","#ecf7a1","#e7f59a","#ddf19a","#d1ed9c","#c6e89f","#bae3a1","#aedea3","#a2d9a4","#94d4a4","#86cfa5","#7ccaa5","#6ec5a5","#62bda7","#58b2ac","#4ea7b0","#439bb5","#3990ba","#3585bb","#3d79b6","#466eb1","#4e63ac","#5758a6","#5e4fa2"],"index":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52],"label":["Amos","Ben Sira","Book of Jubilees","Book of Tobit","Daniel","Deuteronomy","Ecclesiastes","Esther","Exodus","Ezekiel","Ezra","Genesis","Habakkuk","Haggai","Hosea","I Chronicles","I Kings","I Samuel","II Chronicles","II Kings","II Samuel","Isaiah","Jeremiah","Job","Joel","Jonah","Joshua","Judges","Lamentations","Letter of Aristeas","Leviticus","Malachi","Megillat Antiochus","Micah","Nahum","Nehemiah","Numbers","Obadiah","Prayer of Manasseh","Proverbs","Psalm 151","Psalm CLIV","Psalms","Ruth","Sefer Yehudit","Song of Songs","The Book of Maccabees I","The Book of Maccabees II","The Book of Susanna","The Testaments of the Twelve Patriarchs","The Wisdom of Solomon","Zechariah","Zephaniah"],"x":{"__ndarray__":"a6c1QKRGd0Dssg9AJscRQCognb3BhhlAhrc9QH3pET/3bcU/D7f2P2bjzj3EKBlAJn5tQCu95D9BQyZAwqUVP3BZgT/YIgBAjSyNPnZaOj/EoZI/7qtWQI2BJ0CkF3tA670cQHefsz8LhKU/Hj+7P2i+Y0BUnixAujmgP0E9BUAUkBk/voNIQOAyXUDDQrk+xRd7P2v2E0D0ozpAL4t3QJmt4D9CoV9ABjhdQJvF5z+vxfQ/06mmP/Tjoj+Pgck/yPzwP3CyIUCra0dAvecVQAT0OUA=","dtype":"float32","order":"little","shape":[53]},"y":{"__ndarray__":"wYDzQL5OHkHAUC1BJGQjQY5XEEF4sRBBtJAnQdRXHUGLXwtBRwUDQeOJDUFRFx5BGMQIQctV+kDvCQVB3rMQQf6MFUHhUBpBve8WQY6jGEFvaiBBLsYMQYOd/0BRChVBwcIIQVMSGEEwaw5B+14lQX1QEUHrlDJBAOIIQXWvDEFiwiJBs1ECQXYnBUF3XwtBP+AKQQdd80BO0RVBrksaQXL3FUF4wCRB9gUXQaofHkG5LTVBn/gbQe90LkGg0S9BJyEwQRaiLEFjxy1BA4v8QHqYBkE=","dtype":"float32","order":"little","shape":[53]}},"selected":{"id":"1420"},"selection_policy":{"id":"1419"}},"id":"1344","type":"ColumnDataSource"},{"attributes":{"background_fill_color":"white","below":[{"id":"1354"}],"center":[{"id":"1357"},{"id":"1361"}],"left":[{"id":"1358"}],"plot_height":800,"plot_width":800,"renderers":[{"id":"1381"}],"title":{"id":"1414"},"toolbar":{"id":"1370"},"x_range":{"id":"1346"},"x_scale":{"id":"1350"},"y_range":{"id":"1348"},"y_scale":{"id":"1352"}},"id":"1345","subtype":"Figure","type":"Plot"},{"attributes":{},"id":"1350","type":"LinearScale"},{"attributes":{},"id":"1348","type":"DataRange1d"},{"attributes":{},"id":"1346","type":"DataRange1d"},{"attributes":{},"id":"1365","type":"SaveTool"},{"attributes":{},"id":"1417","type":"BasicTickFormatter"},{"attributes":{},"id":"1362","type":"PanTool"},{"attributes":{"overlay":{"id":"1368"}},"id":"1364","type":"BoxZoomTool"},{"attributes":{},"id":"1352","type":"LinearScale"},{"attributes":{"data_source":{"id":"1344"},"glyph":{"id":"1379"},"hover_glyph":null,"muted_glyph":null,"nonselection_glyph":{"id":"1380"},"selection_glyph":null,"view":{"id":"1382"}},"id":"1381","type":"GlyphRenderer"}],"root_ids":["1385"]},"title":"Bokeh Application","version":"2.2.0"}};
+  var render_items = [{"docid":"8ad664f5-4fa9-47ef-a072-78ff36ff7587","root_ids":["1385"],"roots":{"1385":"7ed0c4f2-b74b-4495-ad55-02eb084e4063"}}];
+  root.Bokeh.embed.embed_items_notebook(docs_json, render_items);
+
+  }
+  if (root.Bokeh !== undefined) {
+    embed_document(root);
+  } else {
+    var attempts = 0;
+    var timer = setInterval(function(root) {
+      if (root.Bokeh !== undefined) {
+        clearInterval(timer);
+        embed_document(root);
+      } else {
+        attempts++;
+        if (attempts > 100) {
+          clearInterval(timer);
+          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+        }
+      }
+    }, 10, root)
+  }
+})(window);
+</script>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Interpretation">Interpretation<a class="anchor-link" href="#Interpretation">&#182;</a></h3><ul>
+<li>Here, we ran on the full sfarim, without breaking them down into prakim. Many of the apocryphal texts are separate, at the top.</li>
+<li>The Wisdom of Solomon is near Ecclesiastes. This is pretty interesting, because the Wisdom of Solomon was most likely originally written in Greek, and wasn't written by Solomon. Yet the Hebrew translation (written in 1885) from which we're working, is still rather similar to the Hebrew Ecclesiastes - a testament to the translator's skill.</li>
+<li>Ben Sira can be found near Proverbs - both Wisdom literature and known to be very similar.</li>
+<li>Ezra, Nehemiah, and Daniel are cluster toegether (on the left), as do most of the Major and Minor Prophets (on the bottom right).</li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
