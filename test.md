@@ -15866,7 +15866,7 @@ var element = $('#f1e57957-8116-4b63-bfae-eea692c3f383');
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Interpretation">Interpretation<a class="anchor-link" href="#Interpretation">&#182;</a></h3>
-<p><b>Analyzed by Jeremy Tibbetts.</b><p>
+<p><b>Analyzed by Jeremy Tibbetts.</b></p>
 <p>The Tanach and Talmud graphs compare texts that share many words and topics, and so while those maps can show general patterns, the points on the map did not form distinct clusters. This graph of Kabbalah texts shows the strength of the method when comparing wildly varied texts. The Zohar/Tikkunei Zohar and Maggid Meisharim texts (all in Aramaic) are completely on their own to the side! The central cluster shows texts that are more similar, and that consequently form one connected cluster. We can still see subclusters within it:</p>
 <ul>
 <li>Within that top-left cluster: the leftmost texts are Lurianic, the middle are Cordoverian, and the right-most are pre-Cordoverian.</li>
@@ -15881,10 +15881,10 @@ var element = $('#f1e57957-8116-4b63-bfae-eea692c3f383');
 <li>Beginning of Wisdom is an intro to Kabbalah based on the writings of the Vilna Gaon and the Ramchal, and is directly in between them in the plot.</li>
 <li>Kadmonim (Hechalot Rabbati) are towards the top right - united by Pardes Rimonim. All post-Cordoverian - Ramak, who took the Kadmonim and summarized them. The Arizal took those, and builds his own system on the foundation of the Ramak's work, in a later time period. He wrote the Or Neerav, a commentary on the Zohar, which on the plot is right next to the Pardes Rimmonim.</li>
 </ul>
+</div>
+</div>
+</div>
 
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
