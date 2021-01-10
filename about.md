@@ -1,47 +1,35 @@
 ---
-layout: default
+layout: page
 title: About
 ---
 
-Sefer Similarity Map is an exploratory tool to help uncover the substructure of books/chapters of Tanach, Talmud, and other Jewish texts, and visualize the underlying relationships between them.<br>
-These relationships can illuminate historical, authorial, linguistic, and stylistic connections between texts. The tool can also pick out related texts to any that one is currently learning or teaching.<br>
-
-
-### Introduction
-To start measuring similarity between texts, we consider the rates of words and phrases in each individual text. Other characteristics of the texts, such as theorized date of composition or author, were not included in the model, allowing the similarities along these attributes to emerge from the comparison of the texts themselves. This [has been shown to work well](http://www.informatica.si/index.php/informatica/article/viewFile/67/59), allowing texts to be clustered together merely based on counts of words.
-
-Overall, this is a lot of data! There are around 40,000 unique words in Tanach. We have to keep track of each sefer’s rates of each of those words! That’s big enough if we just use 39 sfarim. If we switch to using subsections (e.g. the 929 prakim of Tanach), our table grows even larger.
-
-### n-grams
-Let's make those tables even bigger!<br>
-We wanted to select features that would be helpful in identifying true substructure. The counts of single words is useful: only two sfarim have the word "מדינתא" (Ezra and Nehemiah), and we would expect them to be similar to each other, and probably not so similar to other sfarim. But a “bag of words” model (pure word counts, where order doesn’t matter) can only contain so much information. "Rav Huna" and "Rav Yosef" each share "Rav", but should be considered differently.<br>
-We therefore expanded to phrases - or “n-grams”. (A bigram is a two-word phrase; a trigram is three.) By including the counts of these n-grams, we retain more contextual information.<br>
-
-We can add the counts of these n-grams to our matrix, so that for each text, we have both the counts of single words, but also longer phrases. Below, depending on the size of texts we were comparing, we run on n-grams of up to size 4.
-
-### [UMAP](https://arxiv.org/pdf/1802.03426.pdf)
-This process leaves us with a giant matrix, with rows being the different texts, columns being the words within the corpus, and each cell being the frequency of that word within that text. Texts that have similar counts of the same words will have similar rows in the table. If we view the table as a representation of a high-dimensional space, then those text would also be near each other in this space. However, visualizing this would be really difficult! We can’t draw a plot in 100-thousand dimensions.<br>
-Dimensionality reduction is a technique to convert this high-dimensional data into something more manageable for us. We used a method called [UMAP](https://umap-learn.readthedocs.io/en/latest/) to reduce the dimensionality of our ngram-count matrix so that we could visualize the final result.<br>
-Texts that were near each other in the original high-dimensional space (because they have similar rates of the same words) should also be close in their UMAP projections into this new 2-D space. This means that texts that group together in the UMAP space (shown in our plots below), should truly have been similar in the high-dimensional space, meaning they should have similar values in the matrix, and should use similar rates of the same words. Clusters in our plots below should therefore truly represent similar texts!
-
-
-### Limitations:
-Using raw counts is not ideal - longer texts will have higher values overall, which can throw off the clustering. Typically, you would normalize the values based on their frequency in the corpus as a whole. [tf-idf](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) is a common method; we played around with some custom scoring metrics, but did not include them below.<br>
-Natural Language Processing (NLP) techniques can add more nuance to the method. For example, we don’t account for prepositions: "והיה" is counted differently than "היה", while ideally we should lemmatize them and count them as the same word. However, the vast amounts of data should actually compensate for missing on the benefits NLP could bring to the table.<br>
+<hr>
+<p>layout: page</p>
+<h2 id="title-about">title: About</h2>
+<p>Sefer Similarity Map is an exploratory tool to help uncover the substructure of books/chapters of Tanach, Talmud, and other Jewish texts, and visualize the underlying relationships between them.<br>
+These relationships can illuminate historical, authorial, linguistic, and stylistic connections between texts. The tool can also pick out related texts to any that one is currently learning or teaching.<br></p>
+<h3 id="introduction">Introduction</h3>
+<p>To start measuring similarity between texts, we consider the rates of words and phrases in each individual text. Other characteristics of the texts, such as theorized date of composition or author, were not included in the model, allowing the similarities along these attributes to emerge from the comparison of the texts themselves. This <a href="http://www.informatica.si/index.php/informatica/article/viewFile/67/59">has been shown to work well</a>, allowing texts to be clustered together merely based on counts of words.</p>
+<p>Overall, this is a lot of data! There are around 40,000 unique words in Tanach. We have to keep track of each sefer’s rates of each of those words! That’s big enough if we just use 39 sfarim. If we switch to using subsections (e.g. the 929 prakim of Tanach), our table grows even larger.</p>
+<h3 id="n-grams">n-grams</h3>
+<p>Let&#39;s make those tables even bigger!<br>
+We wanted to select features that would be helpful in identifying true substructure. The counts of single words is useful: only two sfarim have the word &quot;מדינתא&quot; (Ezra and Nehemiah), and we would expect them to be similar to each other, and probably not so similar to other sfarim. But a “bag of words” model (pure word counts, where order doesn’t matter) can only contain so much information. &quot;Rav Huna&quot; and &quot;Rav Yosef&quot; each share &quot;Rav&quot;, but should be considered differently.<br>
+We therefore expanded to phrases - or “n-grams”. (A bigram is a two-word phrase; a trigram is three.) By including the counts of these n-grams, we retain more contextual information.<br></p>
+<p>We can add the counts of these n-grams to our matrix, so that for each text, we have both the counts of single words, but also longer phrases. Below, depending on the size of texts we were comparing, we run on n-grams of up to size 4.</p>
+<h3 id="-umap-https-arxiv-org-pdf-1802-03426-pdf-"><a href="https://arxiv.org/pdf/1802.03426.pdf">UMAP</a></h3>
+<p>This process leaves us with a giant matrix, with rows being the different texts, columns being the words within the corpus, and each cell being the frequency of that word within that text. Texts that have similar counts of the same words will have similar rows in the table. If we view the table as a representation of a high-dimensional space, then those text would also be near each other in this space. However, visualizing this would be really difficult! We can’t draw a plot in 100-thousand dimensions.<br>
+Dimensionality reduction is a technique to convert this high-dimensional data into something more manageable for us. We used a method called <a href="https://umap-learn.readthedocs.io/en/latest/">UMAP</a> to reduce the dimensionality of our ngram-count matrix so that we could visualize the final result.<br>
+Texts that were near each other in the original high-dimensional space (because they have similar rates of the same words) should also be close in their UMAP projections into this new 2-D space. This means that texts that group together in the UMAP space (shown in our plots below), should truly have been similar in the high-dimensional space, meaning they should have similar values in the matrix, and should use similar rates of the same words. Clusters in our plots below should therefore truly represent similar texts!</p>
+<h3 id="limitations-">Limitations:</h3>
+<p>Using raw counts is not ideal - longer texts will have higher values overall, which can throw off the clustering. Typically, you would normalize the values based on their frequency in the corpus as a whole. <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf">tf-idf</a> is a common method; we played around with some custom scoring metrics, but did not include them below.<br>
+Natural Language Processing (NLP) techniques can add more nuance to the method. For example, we don’t account for prepositions: &quot;והיה&quot; is counted differently than &quot;היה&quot;, while ideally we should lemmatize them and count them as the same word. However, the vast amounts of data should actually compensate for missing on the benefits NLP could bring to the table.<br>
 Similarly, we did not remove extremely common words. This makes comparisons of highly-repetitive texts difficult. When we ran our method on amudim in the Talmud, we produced two large clusters, instead of many highly differentiable ones. We believe this is because most amudim share a lot of similar words, which overwhelms their unique ones.<br>
-The method is slowed down by the number of texts selected for comparison. The number of features does not affect UMAP’s runtime significantly: a corpus of 200,000 words does not run that much slower than one of 50,000 words. However, a comparison of 40 texts runs extremely quickly, while 900 texts runs over a few minutes, and the 5,350 amudim of the Talmud took very long to run.
-
-
-### Results/Usage
-Our code is below, with interactive results at the bottom. We ran some analyses comparing full sfarim, and some on subsections (e.g. prakim of Tanach, amudim of Talmud).<br>
-By mousing over different dots, you can see the texts in the comparison. You can also search above each graph to highlight specifics texts within it.
-
-We included some observations with each comparison. Let us know if you find any other interesting connections!<br>
-
-
-### Contact
-
-We can be reached at jhostyk [at] gmail.com and abzaloum [at] gmail.com.<br>
-Please reach out with any questions, or suggestions/requests for additional plots!
-
-Our code is available on our [github](https://github.com/jhostyk/TorahScraping/blob/master/SeferSimilarityMap.ipynb).
+The method is slowed down by the number of texts selected for comparison. The number of features does not affect UMAP’s runtime significantly: a corpus of 200,000 words does not run that much slower than one of 50,000 words. However, a comparison of 40 texts runs extremely quickly, while 900 texts runs over a few minutes, and the 5,350 amudim of the Talmud took very long to run.</p>
+<h3 id="results-usage">Results/Usage</h3>
+<p>Our code is below, with interactive results at the bottom. We ran some analyses comparing full sfarim, and some on subsections (e.g. prakim of Tanach, amudim of Talmud).<br>
+By mousing over different dots, you can see the texts in the comparison. You can also search above each graph to highlight specifics texts within it.</p>
+<p>We included some observations with each comparison. Let us know if you find any other interesting connections!<br></p>
+<h3 id="contact">Contact</h3>
+<p>We can be reached at jhostyk [at] gmail.com and abzaloum [at] gmail.com.<br>
+Please reach out with any questions, or suggestions/requests for additional plots!</p>
+<p>Our code is available on our <a href="https://github.com/jhostyk/TorahScraping/blob/master/SeferSimilarityMap.ipynb">github</a>.</p>
